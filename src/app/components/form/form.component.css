@@ -1,0 +1,9 @@
+mat-form-field {
+  padding-right: 20px;
+  padding-top: 20px;
+  border-radius: 50%;
+}
+
+#done-container-buttons button{
+  margin-left: 10px;
+}

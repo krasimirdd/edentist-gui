@@ -1,0 +1,96 @@
+<div id="appointments-container">
+  <mat-accordion multi="true">
+
+    <h2 style="text-align: center; margin-bottom: 60px;"> Appointments </h2>
+    <p *ngIf="appointments.length == 0">
+      <mat-progress-bar id="appointments_progress" mode="indeterminate"></mat-progress-bar>
+    </p>
+
+    <form id="sort-form" *ngIf="appointments.length !== 0" [formGroup]="sort" (ngSubmit)="sortByStatus()">
+      <mat-slide-toggle formControlName="showApproved">Approved</mat-slide-toggle>
+      <mat-slide-toggle formControlName="showDeclined">Declined</mat-slide-toggle>
+      <mat-slide-toggle formControlName="showPending">Pending</mat-slide-toggle>
+      <button mat-icon-button type="submit"><span class="material-icons">rule</span></button>
+    </form>
+
+    <mat-expansion-panel *ngFor="let a of appointments">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{a.patient.name}}</mat-panel-title>
+        <mat-panel-description> {{a.service.type}}</mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="expansion_content">
+        <mat-list>
+
+          <div mat-subheader style="padding-bottom:60px; padding-top:15px; margin-top: 30px;  float: left; width: 50%">
+            <p><span class="material-icons-small">personal_injury</span> Patient </p>
+            <mat-list-item>
+              <app-patient style="padding-left: 10px" [patient]=a.patient></app-patient>
+            </mat-list-item>
+          </div>
+
+          <div mat-subheader style="padding-bottom:60px; padding-top:15px; margin-top: 30px;">
+            <p><span class="iconify" data-icon="mdi-doctor" data-inline="false" style="font-size: 24px;"></span> Doctor</p>
+            <mat-list-item>
+              <app-doctor style="padding-left: 10px" [doctor]=a.doctor></app-doctor>
+            </mat-list-item>
+          </div>
+          <mat-divider></mat-divider>
+
+
+          <div *ngIf="a.medicalHistory !== 0">
+            <div mat-subheader style="margin-top: 15px">Medical history</div>
+            <mat-list-item>
+              <div mat-line style="padding-left: 10px">{{a.medicalHistory}}</div>
+            </mat-list-item>
+          </div>
+
+          <div *ngIf="a.prescription.length !== 0">
+            <div mat-subheader style="margin-top: 15px">Prescription</div>
+            <mat-list-item>
+              <div mat-line style="padding-left: 10px">{{a.prescription}}</div>
+            </mat-list-item>
+          </div>
+
+          <div mat-subheader style="margin-top: 15px">
+            <p><span class="material-icons" style="font-size: 24px"> medical_services </span> Service</p>
+          </div>
+          <mat-list-item>
+            <div mat-line style="padding-left: 10px">{{a.service.type}}</div>
+          </mat-list-item>
+
+          <mat-divider></mat-divider>
+
+          <div mat-subheader></div>
+
+          <mat-list-item style="padding-bottom: 10px">
+            <div mat-line style="text-align:center;padding-bottom: 15px">{{a.status}}</div>
+            <div mat-line *ngIf="isDoctor">
+              <div style="margin-left: 39%">
+                <button mat-icon-button type="submit" style="margin-right: 8px;" (click)="onApprove(a)"
+                        color="primary"><span class="material-icons">event_available</span>
+                </button>
+                <button mat-icon-button type="submit" (click)="onDecline(a)"
+                        color="primary"><span class="material-icons">event_busy</span>
+                </button>
+                <button mat-icon-button type="submit" (click)="onEdit(a)"
+                        color="primary"><span class="material-icons">app_registration</span>
+                </button>
+              </div>
+            </div>
+            <div mat-line *ngIf="!isDoctor">
+              <div style="margin-left: 43%">
+                <button mat-raised-button mat-icon-button type="submit" style="margin-right: 8px; border-radius: 0"
+                        (click)="onCancel(a)"
+                        color="primary"><span class="material-icons">event_busy</span>
+                </button>
+              </div>
+            </div>
+          </mat-list-item>
+
+        </mat-list>
+
+      </div>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</div>

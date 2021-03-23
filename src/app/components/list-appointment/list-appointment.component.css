@@ -1,0 +1,103 @@
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+mat-expansion-panel {
+  margin-bottom: 10px;
+}
+
+.expansion_content {
+  font-size: 15px;
+  padding-left: 30px;
+}
+
+#appointments_progress {
+  width: 70%;
+  padding-top: 30%;
+  left: 15%;
+}
+
+.mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+  background: #f5b962;
+}
+mat-expansion-panel-header {
+  padding: 10px 20px 10px 10px;
+}
+
+.mat-expansion-panel-header-title {
+  width: 400px;
+  margin-right: 10px;
+  padding-left: 30px;
+  padding-right: 30px
+}
+
+#appointments-container {
+  /*box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);*/
+}
+
+mat-list-item .mat-list-item-content {
+  padding: 0 0 0 0;
+}
+
+.mat-subheader {
+  padding: 0;
+}
+
+#sort-form {
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+#sort-form mat-slide-toggle {
+  padding-right: 15px;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 32px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.material-icons-small {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}

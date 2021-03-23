@@ -1,0 +1,111 @@
+<p *ngIf="!(nextAvailable===null)">Next available appointment for {{nextAvailable.doctor.name}} is
+  on {{nextAvailable.date}} </p>
+
+<mat-vertical-stepper #stepper>
+
+  <mat-step [stepControl]="date" errorMessage="Date is required.">
+    <form [formGroup]="date">
+      <ng-template matStepLabel>Choose a date</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input [max]="maxDate" [min]="minDate" [ngxMatDatetimePicker]="picker"
+               formControlName="dateForm" matInput placeholder="Choose a date" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker [showSeconds]="false" [showSpinners]="true"
+                                 [stepHour]="1" [stepMinute]="30"
+                                 [touchUi]="true" [defaultTime]="defaultTime">
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+
+  </mat-step>
+
+  <mat-step [stepControl]="name" errorMessage="Name is required.">
+    <form [formGroup]="name">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="John Doe" formControlName="nameForm" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="email" errorMessage="Email is required.">
+    <form [formGroup]="email">
+      <ng-template matStepLabel>Fill out your Email address</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="john_doe@mail.com" formControlName="emailForm"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="phone" errorMessage="Phone is required.">
+    <form [formGroup]="phone">
+      <ng-template matStepLabel>Fill out your Phone number</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Phone number</mat-label>
+        <input type="tel" matInput placeholder="089 811 222" formControlName="phoneForm" required>
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="service" errorMessage="Service is required.">
+    <form [formGroup]="service">
+      <ng-template matStepLabel>Select service</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Service</mat-label>
+        <mat-select required formControlName="serviceForm">
+          <mat-option *ngFor="let s of availableServices" value="{{s.id}}">{{s.type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="doctor" errorMessage="Doctor is required.">
+    <form [formGroup]="doctor">
+      <ng-template matStepLabel>Select doctor</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Doctor</mat-label>
+        <mat-select required formControlName="doctorForm">
+          <mat-option *ngFor="let d of availableDoctors" value="{{d.id}}">{{d.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Submit request</ng-template>
+    <div id="done-container-buttons">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button type="submit" (click)="onSubmit()" color="primary">Submit</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>
