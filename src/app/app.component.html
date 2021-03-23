@@ -56,12 +56,12 @@
       <mat-sidenav-content class="side-nav-main-content">
         <router-outlet></router-outlet>
 
-        <button id="openChatButton" class="open-button" mat-icon-button color="primary" style="width: 100px;height: 100px; background-color: #e6ebf1"
+        <button id="openChatButton" class="open-button" mat-icon-button color="primary"
                 *ngIf="chatDialogOpen === false" (click)="openChat()">
           <span class="material-icons" style="font-size: 48px">insert_comment</span>
         </button>
         <app-chat-dialog style="display: none" id="chatDialog"></app-chat-dialog>
-        <button id="closeChatButton" class="open-button" mat-icon-button style="color: white"
+        <button id="closeChatButton" class="open-button" mat-icon-button
                 *ngIf="chatDialogOpen === true" (click)="closeChat()">
           <span class="material-icons">close</span>
         </button>
