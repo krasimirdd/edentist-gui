@@ -22,7 +22,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {DoctorPageComponent} from './components/doctor-page/doctor-page.component';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginCallbackComponent} from './components/login-callback/login-callback.component';
-
+import {IsLoadingModule} from '@service-work/is-loading';
 import {EditAppointmentComponent} from './components/edit-appointment/edit-appointment.component';
 import {ChatModule} from './chat/chat.module';
 
@@ -55,6 +55,7 @@ const routers: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    IsLoadingModule,
     RouterModule,
     RouterModule.forRoot(routers),
     BrowserAnimationsModule,

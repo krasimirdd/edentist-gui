@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {delay, map} from 'rxjs/operators';
 import {Appointment} from '../models/appointment';
 import {AppointmentRequest} from '../models/appointmentRequest';
 import {Service} from '../models/service';
@@ -31,7 +31,7 @@ export class AppointmentService {
     return this.httpClient
       .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}})
       .pipe(
-        map(response => response)
+        delay(500)
       );
   }
 
@@ -41,9 +41,7 @@ export class AppointmentService {
 
     return this.httpClient
       .get<Appointment[]>(`${this.getUrl}/`, {headers, params: {user: `${currentUser.email}`}})
-      .pipe(
-        map(response => response)
-      );
+      .pipe(delay(500));
   }
 
   postAppointmentRequest(appointment: AppointmentRequest): Observable<HttpResponse<AppointmentResponse>> {
