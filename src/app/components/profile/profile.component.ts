@@ -3,11 +3,10 @@ import {AuthService as Auth0} from '@auth0/auth0-angular';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {AuthenticatedUser} from '../../models/authenticatedUser';
-import {BehaviorSubject} from 'rxjs';
-import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-profile',
+  styleUrls: ['./profile.component.css'],
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
@@ -23,20 +22,21 @@ export class ProfileComponent implements OnInit {
       (profile) => {
         this.authenticatedUser = profile;
         this.profileJsonStr = JSON.stringify(profile, null, 2);
-        this.authService.getRole(this.authenticatedUser.email)
+        this.authService.getUserMetadata(this.authenticatedUser.email)
           .subscribe(value => {
               this.role = value.role;
               this.authenticatedUser.role = this.role;
+              this.authenticatedUser.details = value;
               localStorage.setItem('authenticatedUser', JSON.stringify(this.authenticatedUser));
             }
           );
       }
     );
+
   }
 
   goTo(): void {
     const url = this.role + '/appointments';
-
     console.log(url);
 
     this.router.navigate([url]);

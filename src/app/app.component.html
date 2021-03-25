@@ -16,7 +16,8 @@
   <ng-template #loaded>
     <div class="toolbar" role="banner">
       <p>
-        <button mat-button (click)="sidenav.toggle()"><span class="material-icons" style="font-size: 38px">toc</span></button>
+        <button mat-button (click)="sidenav.toggle()"><span class="material-icons" style="font-size: 38px">toc</span>
+        </button>
       </p>
 
       <img
@@ -65,9 +66,10 @@
                 *ngIf="chatDialogOpen === true" (click)="closeChat()">
           <span class="material-icons">close</span>
         </button>
-      </mat-sidenav-content>
 
+      </mat-sidenav-content>
     </mat-sidenav-container>
+    <app-footer></app-footer>
   </ng-template>
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

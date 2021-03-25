@@ -21,8 +21,8 @@ export class AppointmentService {
   private getUrl = 'http://localhost:8080/appointments';
   private postUrl = 'http://localhost:8080/appointments';
   private updateUrl = 'http://localhost:8080/appointments/';
-  private getServicesUrl = 'http://localhost:8080/def/services';
-  private getDoctorsUrl = 'http://localhost:8080/def/doctors';
+  private getServicesUrl = 'http://localhost:8080/api/services';
+  private getDoctorsUrl = 'http://localhost:8080/api/doctors';
 
   constructor(private  httpClient: HttpClient) {
   }

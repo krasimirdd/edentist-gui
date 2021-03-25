@@ -16,7 +16,7 @@
 }
 
 .side-nav-main-content {
-  padding: 1% 5% 0 6%;
+  padding: 0 3% 0 3%;
   background-color: #eeeeee;
 }
 
@@ -331,4 +331,13 @@ svg#clouds {
     display: none;
     visibility: hidden;
   }
+}
+
+app-footer{
+  position: absolute;
+  top: 90%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
 }

@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '@auth0/auth0-angular';
-import {ChatDialogComponent} from './chat/chat-dialog/chat-dialog.component';
 
 @Component({
   selector: 'app-root',

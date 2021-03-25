@@ -1,3 +1,5 @@
+import {UserMetadata} from '../services/auth.service';
+
 export class AuthenticatedUser {
   public role: string;
 
@@ -9,7 +11,8 @@ export class AuthenticatedUser {
               public email: string,
               // tslint:disable-next-line:variable-name
               public email_verified: boolean,
-              public sub: string) {
+              public sub: string,
+              public details: UserMetadata) {
   }
 }
 

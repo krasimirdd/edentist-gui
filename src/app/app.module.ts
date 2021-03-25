@@ -25,6 +25,8 @@ import {LoginCallbackComponent} from './components/login-callback/login-callback
 import {IsLoadingModule} from '@service-work/is-loading';
 import {EditAppointmentComponent} from './components/edit-appointment/edit-appointment.component';
 import {ChatModule} from './chat/chat.module';
+import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 const routers: Routes = [
   {path: '', component: ProfileComponent},
@@ -51,6 +53,8 @@ const routers: Routes = [
     LoginCallbackComponent,
     EditAppointmentComponent,
     EditAppointmentComponent,
+    NewsfeedComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

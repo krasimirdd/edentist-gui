@@ -1,23 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthService as Auth0} from '@auth0/auth0-angular';
 import {map} from 'rxjs/operators';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {UserClaims} from '../models/userClaims';
+import {Observable} from 'rxjs';
 
 export class UserMetadata {
-  // tslint:disable-next-line:variable-name
-  constructor(public app_metadata: AppMetadata) {
-  }
-}
-
-class AppMetadata {
-  constructor(public role: string) {
-  }
-}
-
-class Role {
-  constructor(public role: string) {
+  // tslint:disable-next-line:max-line-length
+  constructor(public id: number, public name: string, public email: string, public phone: string,
+              public blood: string, public sex: string,
+              public role: string) {
   }
 }
 
@@ -31,12 +21,20 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getRole(userEmail: string): Observable<Role> {
+  // getRole(userEmail: string): Observable<Role> {
+  //   return this.httpClient
+  //     .get<Role>(`${(this.api)}/${userEmail}/role`, {observe: 'body'})
+  //     .pipe(
+  //       map(value => value)
+  //     );
+  //
+  // }
+
+  getUserMetadata(userEmail: string): Observable<UserMetadata> {
     return this.httpClient
-      .get<Role>(`${(this.api)}/${userEmail}/role`, {observe: 'body'})
+      .get<UserMetadata>(`${(this.api)}/${userEmail}`, {observe: 'body'})
       .pipe(
         map(value => value)
       );
-
   }
 }
