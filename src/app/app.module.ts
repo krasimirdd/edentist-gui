@@ -30,8 +30,8 @@ import { FooterComponent } from './components/footer/footer.component';
 
 const routers: Routes = [
   {path: '', component: ProfileComponent},
-  {path: '*/patient/appointments', component: PatientPageComponent},
-  {path: '*/doctor/appointments', component: DoctorPageComponent},
+  {path: 'patient/appointments', component: PatientPageComponent},
+  {path: 'doctor/appointments', component: DoctorPageComponent},
 ];
 
 // @ts-ignore
