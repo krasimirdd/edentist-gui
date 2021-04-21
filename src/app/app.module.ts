@@ -28,6 +28,7 @@ import {EditAppointmentComponent} from './components/edit-appointment/edit-appoi
 import {ChatModule} from './chat/chat.module';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {HomeButtonComponent} from './components/home-button/home-button.component';
 
 const routers: Routes = [
   {path: '', component: ProfileComponent},
@@ -36,7 +37,6 @@ const routers: Routes = [
   {path: 'appointments/patient/track', component: TrackAppointmentComponent}
 ];
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +48,7 @@ const routers: Routes = [
     PatientComponent,
     PatientPageComponent,
     LoginButtonComponent,
+    HomeButtonComponent,
     AuthenticationButtonComponent,
     LogoutButtonComponent,
     LoadingComponent,
