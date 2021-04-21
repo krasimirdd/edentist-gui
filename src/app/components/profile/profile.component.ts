@@ -3,6 +3,8 @@ import {AuthService as Auth0} from '@auth0/auth0-angular';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {AuthenticatedUser} from '../../models/authenticatedUser';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AppointmentService} from '../../services/appointment.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,11 +15,17 @@ export class ProfileComponent implements OnInit {
   authenticatedUser: AuthenticatedUser;
   profileJsonStr: string;
   role: string;
+  toTrack: FormGroup;
 
-  constructor(public auth: Auth0, public authService: AuthService, public router: Router) {
+  constructor(public auth: Auth0, public authService: AuthService, public router: Router, public appointmentService: AppointmentService) {
   }
 
   ngOnInit(): void {
+    this.toTrack = new FormGroup({
+      codeForm: new FormControl('', [Validators.minLength(1), Validators.required]),
+      emailForm: new FormControl('', [Validators.email, Validators.required])
+    });
+
     this.auth.user$.subscribe(
       (profile) => {
         this.authenticatedUser = profile;
@@ -40,5 +48,10 @@ export class ProfileComponent implements OnInit {
     console.log(url);
 
     this.router.navigate([url]);
+  }
+
+  track(): void {
+    console.log(this.toTrack.controls.codeForm.value);
+    console.log(this.toTrack.controls.emailForm.value);
   }
 }

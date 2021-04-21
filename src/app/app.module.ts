@@ -19,6 +19,7 @@ import {AuthenticationButtonComponent} from './components/authentication-button/
 import {LogoutButtonComponent} from './components/logout-button/logout-button.component';
 import {LoadingComponent} from './components/loading/loading.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {TrackAppointmentComponent} from './components/track-appointment/track-appointment.component';
 import {DoctorPageComponent} from './components/doctor-page/doctor-page.component';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginCallbackComponent} from './components/login-callback/login-callback.component';
@@ -32,6 +33,7 @@ const routers: Routes = [
   {path: '', component: ProfileComponent},
   {path: 'patient/appointments', component: PatientPageComponent},
   {path: 'doctor/appointments', component: DoctorPageComponent},
+  {path: 'appointments/patient/track', component: TrackAppointmentComponent}
 ];
 
 // @ts-ignore
@@ -41,6 +43,7 @@ const routers: Routes = [
     ListAppointmentComponent,
     DoctorComponent,
     AddAppointmentComponent,
+    TrackAppointmentComponent,
     FormComponent,
     PatientComponent,
     PatientPageComponent,
