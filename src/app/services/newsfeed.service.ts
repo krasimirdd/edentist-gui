@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {delay} from 'rxjs/operators';
 import {Article} from '../models/article';
 
 @Injectable({
@@ -20,4 +19,6 @@ export class NewsfeedService {
         source => source
       );
   }
+
+
 }

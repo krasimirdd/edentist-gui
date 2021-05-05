@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
 export class UserMetadata {
-  // tslint:disable-next-line:max-line-length
   constructor(public id: number, public name: string, public email: string, public phone: string,
               public blood: string, public sex: string,
               public role: string) {
@@ -15,6 +14,7 @@ export class UserMetadata {
   providedIn: 'root'
 })
 export class AuthService {
+  loginStatusService = false;
 
   private api = 'http://localhost:8080/api/user';
 
@@ -36,5 +36,11 @@ export class AuthService {
       .pipe(
         map(value => value)
       );
+  }
+
+  isLoggedIn() {
+    if (localStorage.getItem('currentUser') !== null) {
+      this.loginStatusService = true;
+    }
   }
 }

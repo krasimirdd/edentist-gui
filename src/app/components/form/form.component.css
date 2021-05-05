@@ -4,6 +4,11 @@ mat-form-field {
   border-radius: 50%;
 }
 
-#done-container-buttons button{
+#done-container-buttons button {
   margin-left: 10px;
+}
+
+.mat-stepper-vertical, .mat-stepper-horizontal {
+  display: block;
+  padding: 13%;
 }

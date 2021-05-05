@@ -1,20 +1,23 @@
-<mat-grid-list cols="3" rowHeight="130px" gutterSize="20px" style="margin-top:80px">
-  <mat-grid-tile class="mat-grid-tile-left-top" colspan="1" rowspan="4">
+<mat-grid-list cols="3" rowHeight="200px">
+  <mat-grid-tile class="bg-light mat-grid-tile-left-top" colspan="1" rowspan="4">
     <div *ngIf="auth.user$ | async as user; else noUserBlock">
-      <h1> Welcome {{this.authenticatedUser.role}}!</h1>
-      <div class="row align-items-center profile-header">
-        <div class="col-md-2 mb-3">
+      <h1 class="text-md-center"> Welcome {{this.authenticatedUser.role}}!</h1>
+      <div class="row align-content-center profile-header">
+        <div class="col-12 mb-3 text-center text-md-center">
           <img
             [src]="user.picture"
             alt="User's profile picture"
-            class="rounded-circle img-fluid profile-picture"
+            class="fa-facebook-square card-img-top profile-picture"
           />
         </div>
-        <div class="col-md text-center text-md-left">
+        <div class="col-md text-center text-md-center">
           <h2>{{ this.authenticatedUser.details.name}}</h2>
           <p class="lead text-muted">{{ this.authenticatedUser.details.email}}</p>
           <p class="lead text-muted">{{ this.authenticatedUser.details.phone}}</p>
         </div>
+      </div>
+      <div class="text-md-center">
+        <button class="btn btn-primary" (click)="goTo()">Go to appointments</button>
       </div>
     </div>
     <ng-template #noUserBlock><h1>Welcome!</h1></ng-template>
@@ -24,15 +27,11 @@
     <app-newsfeed></app-newsfeed>
   </mat-grid-tile>
 
-  <mat-grid-tile class="mat-grid-tile-left-bottom" colspan="1" rowspan="1">
-    <div>
-
-      <div *ngIf="auth.user$ | async as user; else trackForm">
-        <button class="btn btn-primary" (click)="goTo()">Go to {{this.role}}</button>
-      </div>
-      <ng-template #trackForm>
+  <mat-grid-tile class="bg-light mat-grid-tile-left-bottom" colspan="1" rowspan="1">
+    <div class="row">
+      <div class="col-12 text-md-center">
         <form [formGroup]="toTrack">
-          <p>Track status by code</p>
+          <h3 class="card-title">Track status by code</h3>
           <mat-form-field appearance="outline">
             <mat-label>Code</mat-label>
             <input matInput placeholder="Code from email" formControlName="codeForm" type="password" required>
@@ -42,10 +41,9 @@
             <input matInput placeholder="john_doe@example.com" formControlName="emailForm" type="email" required>
           </mat-form-field>
 
-          <input type="submit" (click)="track()">
+          <button class="btn btn-primary" (click)="track()">Submit</button>
         </form>
-      </ng-template>
-
+      </div>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

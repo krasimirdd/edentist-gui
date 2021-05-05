@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   toTrack: FormGroup;
 
   constructor(public auth: Auth0, public authService: AuthService, public router: Router, public appointmentService: AppointmentService) {
+    this.authService.isLoggedIn();
   }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit {
               this.role = value.role;
               this.authenticatedUser.role = this.role;
               this.authenticatedUser.details = value;
-              localStorage.setItem('authenticatedUser', JSON.stringify(this.authenticatedUser));
+              localStorage.setItem('currentUser', JSON.stringify(this.authenticatedUser));
             }
           );
       }
@@ -44,9 +45,7 @@ export class ProfileComponent implements OnInit {
   }
 
   goTo(): void {
-    const url = this.role + '/appointments';
-    console.log(url);
-
+    const url = 'appointments';
     this.router.navigate([url]);
   }
 
@@ -54,4 +53,5 @@ export class ProfileComponent implements OnInit {
     console.log(this.toTrack.controls.codeForm.value);
     console.log(this.toTrack.controls.emailForm.value);
   }
+
 }

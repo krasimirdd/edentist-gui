@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
 import {AuthenticatedUser} from '../../models/authenticatedUser';
 
 @Component({
@@ -10,8 +9,9 @@ import {AuthenticatedUser} from '../../models/authenticatedUser';
 export class PatientPageComponent {
 
   authenticatedUser: AuthenticatedUser;
+  img = 'assets/images/contact/2.jpg';
 
   constructor() {
-    this.authenticatedUser = JSON.parse(localStorage.getItem('authenticatedUser'));
+    this.authenticatedUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 }

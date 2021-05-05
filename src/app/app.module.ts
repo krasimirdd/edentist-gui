@@ -14,29 +14,38 @@ import {PatientComponent} from './components/patient/patient.component';
 import {PatientPageComponent} from './components/patient-page/patient-page.component';
 import {AuthModule} from '@auth0/auth0-angular';
 import {environment as env} from '../environments/environment';
-import {LoginButtonComponent} from './components/login-button/login-button.component';
-import {AuthenticationButtonComponent} from './components/authentication-button/authentication-button.component';
-import {LogoutButtonComponent} from './components/logout-button/logout-button.component';
 import {LoadingComponent} from './components/loading/loading.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {TrackAppointmentComponent} from './components/track-appointment/track-appointment.component';
 import {DoctorPageComponent} from './components/doctor-page/doctor-page.component';
 import {HttpClientModule} from '@angular/common/http';
-import {LoginCallbackComponent} from './components/login-callback/login-callback.component';
 import {IsLoadingModule} from '@service-work/is-loading';
 import {EditAppointmentComponent} from './components/edit-appointment/edit-appointment.component';
 import {ChatModule} from './chat/chat.module';
-import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
-import { FooterComponent } from './components/footer/footer.component';
-import {HomeButtonComponent} from './components/home-button/home-button.component';
+import {NewsfeedComponent} from './components/newsfeed/newsfeed.component';
+import {FullComponent} from './layout/full/full.component';
+import {BannerComponent} from './shared/banner/banner.component';
+import {FooterComponent} from './shared/footer/footer.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BannerNavigationComponent} from './shared/banner-navigation/banner-navigation.component';
+import {AboutComponent} from './components/about/about.component';
+import {TeamComponent} from './components/about/About-Components/team/team.component';
+import {AchivementComponent} from './components/about/About-Components/achivement/achivement.component';
 
 const routers: Routes = [
-  {path: '', component: ProfileComponent},
-  {path: 'patient/appointments', component: PatientPageComponent},
-  {path: 'doctor/appointments', component: DoctorPageComponent},
-  {path: 'appointments/patient/track', component: TrackAppointmentComponent}
+  {
+    path: '',
+    component: FullComponent,
+    children: [
+      {path: '', component: ProfileComponent},
+      {path: 'appointments', component: PatientPageComponent},
+      {path: 'appointments/patient/track', component: TrackAppointmentComponent},
+      {path: 'about', component: AboutComponent}
+    ],
+  }
 ];
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,18 +56,19 @@ const routers: Routes = [
     FormComponent,
     PatientComponent,
     PatientPageComponent,
-    LoginButtonComponent,
-    HomeButtonComponent,
-    AuthenticationButtonComponent,
-    LogoutButtonComponent,
     LoadingComponent,
     ProfileComponent,
     DoctorPageComponent,
-    LoginCallbackComponent,
     EditAppointmentComponent,
     EditAppointmentComponent,
     NewsfeedComponent,
     FooterComponent,
+    FullComponent,
+    BannerComponent,
+    BannerNavigationComponent,
+    AboutComponent,
+    TeamComponent,
+    AchivementComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +83,7 @@ const routers: Routes = [
     AuthModule.forRoot({
       ...env.auth,
     }),
+    NgbModule,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},

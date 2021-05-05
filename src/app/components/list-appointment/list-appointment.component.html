@@ -1,8 +1,7 @@
 <div id="appointments-container">
   <mat-accordion multi="true">
 
-    <h2 style="text-align: center; margin-bottom: 60px;"> Appointments </h2>
-    <p *ngIf="appointments.length == 0">
+    <p *ngIf="appointments.length == 0 && authenticatedUser!=null">
       <mat-progress-bar id="appointments_progress" mode="indeterminate"></mat-progress-bar>
     </p>
 
