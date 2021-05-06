@@ -1,1 +1,19 @@
-TrackAppointmentComponent
+<div class="row">
+  <div class="col-12 text-md-center">
+    <form [formGroup]="toTrack">
+      <h3 class="card-title" style="color: #ffffff">Track you status if already made an appointment</h3>
+      <h4 class="subtitle"> Use the code from email to track status </h4>
+      <mat-form-field appearance="fill">
+        <mat-label>Code</mat-label>
+        <input matInput placeholder="Code from email" formControlName="codeForm" type="password" required>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="margin-left: 10px">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="john_doe@example.com" formControlName="emailForm" type="email" required>
+      </mat-form-field>
+      <div class="align-self-lg-center">
+      <button class="btn btn-primary" (click)="track()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

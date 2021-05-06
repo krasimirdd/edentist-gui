@@ -1,9 +1,9 @@
 <div id="appointments-container">
   <mat-accordion multi="true">
 
-    <p *ngIf="appointments.length == 0 && authenticatedUser!=null">
-      <mat-progress-bar id="appointments_progress" mode="indeterminate"></mat-progress-bar>
-    </p>
+    <div class="text-md-center" *ngIf="appointments.length == 0 && authenticatedUser!=null">
+      <p-progressSpinner id="appointments_progress"></p-progressSpinner>
+    </div>
 
     <form id="sort-form" *ngIf="appointments.length !== 0" [formGroup]="sort" (ngSubmit)="sortByStatus()">
       <mat-slide-toggle formControlName="showApproved">Approved</mat-slide-toggle>
@@ -63,7 +63,7 @@
 
           <mat-list-item style="padding-bottom: 10px">
             <div mat-line style="text-align:center;padding-bottom: 15px">{{a.status}}</div>
-            <div mat-line *ngIf="isDoctor">
+            <div mat-line *ngIf="isDoctor || isAdmin">
               <div style="margin-left: 39%">
                 <button mat-icon-button type="submit" style="margin-right: 8px;" (click)="onApprove(a)"
                         color="primary"><span class="material-icons">event_available</span>
@@ -76,7 +76,7 @@
                 </button>
               </div>
             </div>
-            <div mat-line *ngIf="!isDoctor">
+            <div mat-line *ngIf="!isDoctor || isAdmin">
               <div style="margin-left: 43%">
                 <button mat-raised-button mat-icon-button type="submit" style="margin-right: 8px; border-radius: 0"
                         (click)="onCancel(a)"

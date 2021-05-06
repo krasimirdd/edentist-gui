@@ -14,7 +14,6 @@ import {PatientComponent} from './components/patient/patient.component';
 import {PatientPageComponent} from './components/patient-page/patient-page.component';
 import {AuthModule} from '@auth0/auth0-angular';
 import {environment as env} from '../environments/environment';
-import {LoadingComponent} from './components/loading/loading.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {TrackAppointmentComponent} from './components/track-appointment/track-appointment.component';
 import {DoctorPageComponent} from './components/doctor-page/doctor-page.component';
@@ -31,6 +30,8 @@ import {BannerNavigationComponent} from './shared/banner-navigation/banner-navig
 import {AboutComponent} from './components/about/about.component';
 import {TeamComponent} from './components/about/About-Components/team/team.component';
 import {AchivementComponent} from './components/about/About-Components/achivement/achivement.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ListSingleAppointmentComponent } from './components/list-single-appointment/list-single-appointment.component';
 
 const routers: Routes = [
   {
@@ -38,6 +39,7 @@ const routers: Routes = [
     component: FullComponent,
     children: [
       {path: '', component: ProfileComponent},
+      {path: 'home', component: ProfileComponent},
       {path: 'appointments', component: PatientPageComponent},
       {path: 'appointments/patient/track', component: TrackAppointmentComponent},
       {path: 'about', component: AboutComponent}
@@ -50,13 +52,13 @@ const routers: Routes = [
   declarations: [
     AppComponent,
     ListAppointmentComponent,
+    ListSingleAppointmentComponent,
     DoctorComponent,
     AddAppointmentComponent,
     TrackAppointmentComponent,
     FormComponent,
     PatientComponent,
     PatientPageComponent,
-    LoadingComponent,
     ProfileComponent,
     DoctorPageComponent,
     EditAppointmentComponent,
@@ -84,6 +86,7 @@ const routers: Routes = [
       ...env.auth,
     }),
     NgbModule,
+    ProgressSpinnerModule,
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},

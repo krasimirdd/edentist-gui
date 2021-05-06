@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import { AuthService as auth0 } from '@auth0/auth0-angular';
-import { AuthService} from '../../services/auth.service';
+import {AuthService as auth0} from '@auth0/auth0-angular';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-banner-navigation',
@@ -12,6 +12,7 @@ export class BannerNavigationComponent implements OnInit {
   logoutStatus = false;
 
   constructor(public auth: AuthService, public router: Router, private auth0Service: auth0) {
+    this.auth.isLoggedIn();
   }
 
   ngOnInit(): void {
@@ -19,6 +20,7 @@ export class BannerNavigationComponent implements OnInit {
 
   loginClick() {
     this.auth0Service.loginWithRedirect();
+    this.auth.doLogin();
   }
 
   newAppointment() {
