@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>View appointment</h1>
+<div mat-dialog-content>
+  <form>
+    <mat-divider></mat-divider>
+
+    <div style="height: 180px; padding-left: 25px; padding-bottom: 30px">
+      <div style="float: left; width: 25%; padding-top: 20px">
+        <h3 class="subtitle">Patient Info: </h3>
+        <p class="title">{{data.patient.name}}</p>
+        <p class="title">{{data.patient.email}}</p>
+        <p class="title">{{data.patient.phone}}</p>
+      </div>
+      <div style="float: left; width: 25%; padding-top: 20px">
+        <h3 class="subtitle">Doctor Info: </h3>
+        <p class="title">{{data.doctor.name}}</p>
+        <p class="title">{{data.doctor.email}}</p>
+        <p class="title">{{data.doctor.phone}}</p>
+      </div>
+      <div style="padding-top: 20px;">
+        <h3>Date for appointment: <b>{{date}} </b></h3>
+      </div>
+      <h3>Service Type: <b>{{service.type}}</b></h3>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div style="padding:20px">
+
+      <div>
+        <h3 class="subtitle"> Prescription:</h3>
+        <mat-form-field appearance="outline" style="display: inline">
+          <mat-label> Prescription</mat-label>
+          <textarea formControlName="_prescription" matInput disabled [(ngModel)]="prescription"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <h3 class="subtitle"> Medical history: </h3>
+        <mat-form-field appearance="outline" style="display: inline">
+          <mat-label> Medical History</mat-label>
+          <textarea formControlName="_medhist" matInput disabled [(ngModel)]="medHist"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <h3> Blood type: <b>{{bloodType}} </b></h3>
+        <h3> Status: <h1>{{status}}</h1></h3>
+      </div>
+
+    </div>
+  </form>
+
+</div>
+
+<button (click)="onNoClick()" mat-button>Dismiss</button>

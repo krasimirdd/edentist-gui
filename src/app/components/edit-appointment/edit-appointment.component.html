@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Edit appointment</h1>
 <div mat-dialog-content>
-  <form [formGroup]="serviceFormGroup">
+  <form [formGroup]="formGroup">
     <mat-divider></mat-divider>
 
     <div style="height: 180px; padding-left: 25px; padding-bottom: 30px">
@@ -16,7 +16,7 @@
       <h3>Service Type: </h3>
       <mat-form-field appearance="outline">
         <mat-label>Service</mat-label>
-        <mat-select formControlName="serviceEditForm" [(ngModel)]="service" required>
+        <mat-select formControlName="serviceEditForm" [(ngModel)]="service.type" required>
           <mat-option *ngFor="let s of availableServices" value="{{s.id}}">{{s.type}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -47,6 +47,32 @@
           </button>
         </mat-form-field>
       </div>
+
+      <div>
+        <h3> Blood type: </h3>
+        <mat-form-field appearance="outline">
+          <mat-label> Blood Type </mat-label>
+          <mat-select formControlName="_bloodType" [(ngModel)]="bloodType">
+            <mat-option value="A+">A+</mat-option>
+            <mat-option value="A-">A-</mat-option>
+            <mat-option value="B+">B+</mat-option>
+            <mat-option value="B-">B-</mat-option>
+            <mat-option value="0+">0+</mat-option>
+            <mat-option value="0-">0-</mat-option>
+            <mat-option value="AB+">AB+</mat-option>
+            <mat-option value="AB-">AB-</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+<!--        <mat-form-field appearance="outline" style="display: inline">-->
+<!--          <mat-label> Blood Type </mat-label>-->
+<!--          <textarea formControlName="_bloodType" matInput [(ngModel)]="bloodType"></textarea>-->
+<!--          <button (click)="bloodType=''" aria-label="Clear" mat-button mat-icon-button matSuffix>-->
+<!--            <mat-icon>close</mat-icon>-->
+<!--          </button>-->
+<!--        </mat-form-field>-->
+      </div>
+
       <!--  </form>-->
 
     </div>
@@ -56,12 +82,3 @@
 
 <button (click)="onNoClick()" mat-button>Dismiss</button>
 <button type="submit" cdkFocusInitial mat-button (click)="onSubmit()">Save</button>
-
-
-<!-- Copyright 2020 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
-<!--<mat-form-field appearance="outline">-->
-<!--  <mat-label>Favorite Animal</mat-label>-->
-<!--  <input matInput [(ngModel)]="data.animal">-->
-<!--</mat-form-field>-->

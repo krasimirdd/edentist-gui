@@ -27,15 +27,15 @@ export class EditAppointmentComponent {
   id: number;
   medHist: string;
   prescription: string;
+  bloodType: string;
   date: Date;
   patient: Patient;
   doctor: Doctor;
   status: string;
-  service: Service;
 
+  service: Service;
   availableServices: Service[];
-  serviceFormGroup: FormGroup;
-  nextFromGroup: FormGroup;
+  formGroup: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<EditAppointmentComponent>,
@@ -44,6 +44,7 @@ export class EditAppointmentComponent {
 
     this.id = data.id;
     this.medHist = data.medicalHistory;
+    this.bloodType = data.patient.bloodType;
     this.prescription = data.prescription;
     this.date = data.date;
     this.patient = data.patient;
@@ -54,12 +55,11 @@ export class EditAppointmentComponent {
     this.appointmentService.getServices()
       .subscribe(value => this.availableServices = value);
 
-    this.serviceFormGroup = new FormGroup({
+    this.formGroup = new FormGroup({
       serviceEditForm: new FormControl(),
-    // });
-    // this.nextFromGroup = new FormGroup({
       _prescription: new FormControl(),
-      _medhist: new FormControl()
+      _medhist: new FormControl(),
+      _bloodType: new FormControl()
     });
   }
 
@@ -68,17 +68,19 @@ export class EditAppointmentComponent {
   }
 
   onSubmit(): void {
-    const serviceId = this.serviceFormGroup.controls.serviceEditForm.value;
+    const serviceId = this.formGroup.controls.serviceEditForm.value;
+    this.patient.bloodType = this.formGroup.controls._bloodType.value;
     console.log(serviceId);
+
     const appointmentRequest = new AppointmentEdit(
       this.id,
-      this.serviceFormGroup.controls._medhist.value,
-      this.serviceFormGroup.controls._prescription.value,
+      this.formGroup.controls._medhist.value,
+      this.formGroup.controls._prescription.value,
       this.date,
       new Service(serviceId, ''),
       this.patient,
       this.doctor,
-      this.status
+      this.status,
     );
 
     console.log(appointmentRequest);

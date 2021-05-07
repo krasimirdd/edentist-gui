@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ChatService} from '../chat.service';
 
 @Component({
   selector: 'app-chat-dialog',
@@ -12,7 +11,6 @@ export class ChatDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.chat.talk();
   }
 
 }

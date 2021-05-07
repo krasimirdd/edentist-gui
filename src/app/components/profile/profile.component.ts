@@ -15,30 +15,19 @@ export class ProfileComponent implements OnInit {
   role: string;
 
   constructor(public auth: Auth0, public authService: AuthService, public router: Router) {
+    this.authService.isLoggedIn();
   }
 
   ngOnInit(): void {
-    this.auth.user$.subscribe(
-      (profile) => {
-        this.authenticatedUser = profile;
-        this.profileJsonStr = JSON.stringify(profile, null, 2);
-        this.authService.getUserMetadata(this.authenticatedUser.email)
-          .subscribe(value => {
-              this.role = value.role;
-              this.authenticatedUser.role = this.role;
-              this.authenticatedUser.details = value;
-              localStorage.setItem('authenticatedUser', JSON.stringify(this.authenticatedUser));
-            }
-          );
-      }
-    );
-
+    this.authService.isLoggedIn();
+    this.authService.doLogin();
+    this.authenticatedUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.profileJsonStr = JSON.stringify(this.authenticatedUser, null, 2);
+    this.role = this.authenticatedUser.role;
   }
 
   goTo(): void {
-    const url = this.role + '/appointments';
-    console.log(url);
-
+    const url = 'appointments';
     this.router.navigate([url]);
   }
 }
