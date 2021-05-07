@@ -11,7 +11,8 @@ import {Article} from '../../models/article';
 export class NewsfeedComponent implements OnInit {
   $newsfeed: Observable<Article[]>;
   showLoader: boolean;
-
+  page = 1;
+  pageSize = 12;
   constructor(private newsfeedService: NewsfeedService) {
   }
 
