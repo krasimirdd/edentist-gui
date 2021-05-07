@@ -63,7 +63,7 @@
 
           <mat-list-item style="padding-bottom: 10px">
             <div mat-line style="text-align:center;padding-bottom: 15px">{{a.status}}</div>
-            <div mat-line *ngIf="isDoctor || isAdmin">
+            <div mat-line *ngIf="isDoctor">
               <div style="margin-left: 39%">
                 <button mat-icon-button type="submit" style="margin-right: 8px;" (click)="onApprove(a)"
                         color="primary"><span class="material-icons">event_available</span>
@@ -76,7 +76,7 @@
                 </button>
               </div>
             </div>
-            <div mat-line *ngIf="!isDoctor || isAdmin">
+            <div mat-line *ngIf="!isDoctor">
               <div style="margin-left: 43%">
                 <button mat-raised-button mat-icon-button type="submit" style="margin-right: 8px; border-radius: 0"
                         (click)="onCancel(a)"

@@ -25,7 +25,6 @@ export class ListAppointmentComponent implements OnInit {
 
   @Input() authenticatedUser: AuthenticatedUser;
   isDoctor = false;
-  isAdmin = false;
   sort: FormGroup;
 
   private static doConfirm(): boolean {
@@ -36,11 +35,8 @@ export class ListAppointmentComponent implements OnInit {
     console.log(this.authenticatedUser);
     console.log(this.authenticatedUser.role);
 
-    this.isAdmin = this.authenticatedUser.role === 'admin';
-    if (!this.isAdmin) {
-      this.isDoctor = this.authenticatedUser.role === 'doctor';
-    }
-    this.appointmentService.getAppointments(this.authenticatedUser, this.isAdmin)
+    this.isDoctor = this.authenticatedUser.role === 'doctor';
+    this.appointmentService.getAppointments(this.authenticatedUser)
       .subscribe(
         data => this.appointments = data
       );
@@ -64,7 +60,7 @@ export class ListAppointmentComponent implements OnInit {
     if (values.length === 0) {
       console.log(values);
 
-      this.appointmentService.getAppointments(this.authenticatedUser, this.isAdmin)
+      this.appointmentService.getAppointments(this.authenticatedUser)
         .subscribe(
           data => this.appointments = data
         );

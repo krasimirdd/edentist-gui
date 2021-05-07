@@ -28,11 +28,9 @@ export class AppointmentService {
   constructor(private  httpClient: HttpClient) {
   }
 
-  getAppointments(currentUser: AuthenticatedUser, isAdmin: boolean): Observable<Appointment[]> {
-    const headers = new HttpHeaders().set('IsAdmin', isAdmin ? 'true' : 'false');
-
+  getAppointments(currentUser: AuthenticatedUser): Observable<Appointment[]> {
     return this.httpClient
-      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}, headers})
+      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}})
       .pipe(
         delay(500)
       );
