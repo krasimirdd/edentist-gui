@@ -19,7 +19,6 @@ export class AppointmentService {
 
   // private getUrl = 'http://api.tvmaze.com/search/shows?q=Vikings';
   private getUrl = 'http://localhost:8080/appointments';
-  private getSingleUrl = 'http://localhost:8080/appointment';
   private postUrl = 'http://localhost:8080/appointments';
   private updateUrl = 'http://localhost:8080/appointments/';
   private getServicesUrl = 'http://localhost:8080/api/services';
@@ -28,21 +27,9 @@ export class AppointmentService {
   constructor(private  httpClient: HttpClient) {
   }
 
-  getAppointments(currentUser: AuthenticatedUser, isAdmin: boolean): Observable<Appointment[]> {
-    const headers = new HttpHeaders().set('IsAdmin', isAdmin ? 'true' : 'false');
-
+  getAppointments(currentUser: AuthenticatedUser): Observable<Appointment[]> {
     return this.httpClient
-      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}, headers})
-      .pipe(
-        delay(500)
-      );
-  }
-
-  getAppointment(email: string, code: string): Observable<Appointment> {
-    const headers = new HttpHeaders().set('Code', code);
-
-    return this.httpClient
-      .get<Appointment>(`${this.getSingleUrl}/`, {params: {user: `${email}`}, headers})
+      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}})
       .pipe(
         delay(500)
       );
@@ -66,8 +53,6 @@ export class AppointmentService {
 
   updateAppointment(updated: AppointmentEdit): Observable<HttpResponse<AppointmentResponse>> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
-    console.log(updated);
 
     return this.httpClient
       .post<AppointmentEdit>(`${this.updateUrl}${updated.id}`, JSON.stringify(updated), {headers, observe: 'response'});

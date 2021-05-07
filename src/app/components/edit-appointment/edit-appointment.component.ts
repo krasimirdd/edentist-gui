@@ -27,15 +27,15 @@ export class EditAppointmentComponent {
   id: number;
   medHist: string;
   prescription: string;
-  bloodType: string;
   date: Date;
   patient: Patient;
   doctor: Doctor;
   status: string;
-
   service: Service;
+
   availableServices: Service[];
-  formGroup: FormGroup;
+  serviceFormGroup: FormGroup;
+  nextFromGroup: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<EditAppointmentComponent>,
@@ -44,7 +44,6 @@ export class EditAppointmentComponent {
 
     this.id = data.id;
     this.medHist = data.medicalHistory;
-    this.bloodType = data.patient.bloodType;
     this.prescription = data.prescription;
     this.date = data.date;
     this.patient = data.patient;
@@ -55,11 +54,12 @@ export class EditAppointmentComponent {
     this.appointmentService.getServices()
       .subscribe(value => this.availableServices = value);
 
-    this.formGroup = new FormGroup({
+    this.serviceFormGroup = new FormGroup({
       serviceEditForm: new FormControl(),
+    // });
+    // this.nextFromGroup = new FormGroup({
       _prescription: new FormControl(),
-      _medhist: new FormControl(),
-      _bloodType: new FormControl()
+      _medhist: new FormControl()
     });
   }
 
@@ -68,19 +68,17 @@ export class EditAppointmentComponent {
   }
 
   onSubmit(): void {
-    const serviceId = this.formGroup.controls.serviceEditForm.value;
-    this.patient.bloodType = this.formGroup.controls._bloodType.value;
+    const serviceId = this.serviceFormGroup.controls.serviceEditForm.value;
     console.log(serviceId);
-
     const appointmentRequest = new AppointmentEdit(
       this.id,
-      this.formGroup.controls._medhist.value,
-      this.formGroup.controls._prescription.value,
+      this.serviceFormGroup.controls._medhist.value,
+      this.serviceFormGroup.controls._prescription.value,
       this.date,
       new Service(serviceId, ''),
       this.patient,
       this.doctor,
-      this.status,
+      this.status
     );
 
     console.log(appointmentRequest);

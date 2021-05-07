@@ -1,29 +1,8 @@
-<div class="bg-light spacer feature1">
-  <div class="container">
-    <!-- Row  -->
-    <div class="row justify-content-center">
-      <div class="col-md-7 text-center no-trans">
-        <h2 class="title">Appointments</h2>
-        <h6 class="subtitle" style="font-size: 16px">
-          You can relay on our amazing features list and also our customer
-          services will be great experience for you without doubt and in no-time
-        </h6>
-      </div>
-    </div>
+<div id="wrapper">
+  <div id="left">
+    <app-list-appointment [authenticatedUser]="this.authenticatedUser"></app-list-appointment>
   </div>
-</div>
-
-<div class="container-fluid" style="margin-left: 5%">
-  <div class="row">
-    <div class="col-6">
-      <p class="text-md-center">
-        <img *ngIf="!this.isLoggedIn()" src="/assets/images/contact/2.jpg" style="margin-top:20%">
-      </p>
-      <app-list-appointment [authenticatedUser]="this.authenticatedUser"></app-list-appointment>
-    </div>
-
-    <div class="col-6">
-      <app-add-appointment></app-add-appointment>
-    </div>
+  <div id="right">
+    <app-add-appointment></app-add-appointment>
   </div>
 </div>
