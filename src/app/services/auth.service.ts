@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {AuthService as auth0} from '@auth0/auth0-angular';
 import {AuthenticatedUser} from '../models/authenticatedUser';
+import {environment} from '../../environments/environment';
 
 export class UserMetadata {
   constructor(public id: number, public name: string, public email: string, public phone: string,
@@ -16,20 +17,39 @@ export class UserMetadata {
   providedIn: 'root'
 })
 export class AuthService {
-  loginStatusService = false;
-
   private api = 'http://localhost:8080/api/user';
+  private secret = environment.secret;
+
+  public loginStatusService = false;
 
   constructor(private httpClient: HttpClient, private auth0Service: auth0) {
+    console.log(this.secret);
     this.isLoggedIn();
   }
 
-  getUserMetadata(userEmail: string): Observable<UserMetadata> {
+  getUserMetadata(userEmail: string): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders().set('Authorization', this.secret);
+
     return this.httpClient
-      .get<UserMetadata>(`${(this.api)}/${userEmail}`, {observe: 'body'})
-      .pipe(
-        map(value => value)
-      );
+      .get(
+        `${(this.api)}/${userEmail}`,
+        {
+          observe: 'response',
+          headers
+        });
+  }
+
+  private registerUser(user: AuthenticatedUser) {
+    const headers = new HttpHeaders().set('Authorization', this.secret);
+
+    return this.httpClient
+      .post<any>(
+        this.api,
+        user.email,
+        {
+          headers
+        }
+      ).pipe();
   }
 
   isLoggedIn(): boolean {
@@ -47,10 +67,12 @@ export class AuthService {
       (profile) => {
         authenticatedUser = profile;
         this.getUserMetadata(authenticatedUser.email)
-          .subscribe(value => {
-              authenticatedUser.role = value.role;
-              authenticatedUser.details = value;
+          .subscribe((res: HttpResponse<any>) => {
+              const entity = res.body;
+              authenticatedUser.role = entity.role;
+              authenticatedUser.details = entity;
               localStorage.setItem('currentUser', JSON.stringify(authenticatedUser));
+              localStorage.setItem('authorization', res.headers.get('authorization'));
             }, error => {
               this.registerUser(authenticatedUser).subscribe(
                 () => {
@@ -71,9 +93,5 @@ export class AuthService {
         return authenticatedUser;
       }
     );
-  }
-
-  private registerUser(user: AuthenticatedUser) {
-    return this.httpClient.post<any>(this.api, user.email).pipe();
   }
 }

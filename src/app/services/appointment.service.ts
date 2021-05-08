@@ -8,6 +8,7 @@ import {Service} from '../models/service';
 import {Doctor} from '../models/doctor';
 import {AuthenticatedUser} from '../models/authenticatedUser';
 import {AppointmentEdit} from '../models/appointmentEdit';
+import {environment} from '../../environments/environment';
 
 class AppointmentResponse {
 }
@@ -16,6 +17,7 @@ class AppointmentResponse {
   providedIn: 'root'
 })
 export class AppointmentService {
+  private secret = environment.secret;
 
   // private getUrl = 'http://api.tvmaze.com/search/shows?q=Vikings';
   private getUrl = 'http://localhost:8080/appointments';
@@ -29,8 +31,10 @@ export class AppointmentService {
   }
 
   getAppointments(currentUser: AuthenticatedUser): Observable<Appointment[]> {
+    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('authorization'));
+
     return this.httpClient
-      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}})
+      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}, headers})
       .pipe(
         delay(500)
       );
@@ -47,7 +51,9 @@ export class AppointmentService {
   }
 
   getAppointmentsWithFilter(currentUser: AuthenticatedUser, filter: string): Observable<Appointment[]> {
-    const headers = new HttpHeaders().set('Filter', filter);
+    const headers = new HttpHeaders()
+      .set('Filter', filter)
+      .set('Authorization', localStorage.getItem('authorization'));
     console.log(filter);
 
     return this.httpClient
@@ -63,7 +69,9 @@ export class AppointmentService {
   }
 
   updateAppointment(updated: AppointmentEdit): Observable<HttpResponse<AppointmentResponse>> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', localStorage.getItem('authorization'));
 
     console.log(updated);
 
@@ -72,23 +80,29 @@ export class AppointmentService {
   }
 
   getServices(): Observable<Service[]> {
+    const headers = new HttpHeaders().set('Authorization', this.secret);
+
     return this.httpClient
-      .get<Service[]>(this.getServicesUrl)
+      .get<Service[]>(this.getServicesUrl, {headers})
       .pipe(
         map(response => response)
       );
   }
 
   getDoctors(): Observable<Doctor[]> {
+    const headers = new HttpHeaders().set('Authorization', this.secret);
+
     return this.httpClient
-      .get<Doctor[]>(this.getDoctorsUrl)
+      .get<Doctor[]>(this.getDoctorsUrl, {headers})
       .pipe(
         map(response => response)
       );
   }
 
   postStatus(a: Appointment): Observable<Appointment> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', localStorage.getItem('authorization'));
     console.log(a);
 
     return this.httpClient
@@ -99,8 +113,9 @@ export class AppointmentService {
   }
 
   postCancel(a: Appointment): Observable<HttpResponse<Appointment>> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', localStorage.getItem('authorization'));
     console.log('Canceling -> ' + a);
 
     return this.httpClient
