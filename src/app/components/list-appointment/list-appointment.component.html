@@ -1,11 +1,6 @@
 <div id="appointments-container">
   <mat-accordion multi="true">
-
-    <div class="text-md-center" *ngIf="appointments.length == 0 && authenticatedUser!=null">
-      <p-progressSpinner id="appointments_progress"></p-progressSpinner>
-    </div>
-
-    <form id="sort-form" *ngIf="appointments.length !== 0" [formGroup]="sort" (ngSubmit)="sortByStatus()">
+    <form id="sort-form" *ngIf="authenticatedUser!=null" [formGroup]="sort" (ngSubmit)="sortByStatus()">
       <mat-slide-toggle formControlName="showApproved">Approved</mat-slide-toggle>
       <mat-slide-toggle formControlName="showDeclined">Declined</mat-slide-toggle>
       <mat-slide-toggle formControlName="showPending">Pending</mat-slide-toggle>

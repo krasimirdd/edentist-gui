@@ -8,7 +8,10 @@
                 <i [class]="achive.icon"></i>
             </div>
             <div class="m-l-20">
-                <h1 class="font-light m-b-0 text-white">{{achive.fieldCount}}</h1>
+                <h1 *ngIf='achive.field === "Dedicated Professionals"'
+                    class="font-light m-b-0 text-white">{{doctorsCount}}</h1>
+                <h1 *ngIf='achive.field !== "Dedicated Professionals"'
+                    class="font-light m-b-0 text-white">{{achive.fieldCount}}</h1>
                 <h6 class="font-13 text-uppercase text-white op-7">{{achive.field}}</h6>
             </div>
         </div>

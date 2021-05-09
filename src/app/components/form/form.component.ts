@@ -22,14 +22,14 @@ export class FormComponent implements OnInit {
     this.snack = snack;
     this.appointmentService = appointmentService;
     this.router = router;
-
+    this.nextAvailable = null;
     const currDay = new Date();
     const currentYear = currDay.getFullYear();
     this.minDate = currDay;
     this.maxDate = new Date(currentYear + 1, 11, 31);
   }
 
-  public nextAvailable = null;
+  public nextAvailable;
 
   availableServices: Service[];
   availableDoctors: Doctor[];
@@ -49,6 +49,8 @@ export class FormComponent implements OnInit {
   private snack: MatSnackBar;
 
   ngOnInit(): void {
+    this.nextAvailable = null;
+
     const defaultMinutes = new Date().getMinutes() > 30 ? 30 : 0;
     this.defaultTime = [new Date().getHours(), defaultMinutes, 0];
 
@@ -86,13 +88,13 @@ export class FormComponent implements OnInit {
       this.phone.controls.phoneForm.value,
       this.doctor.controls.doctorForm.value,
       this.service.controls.serviceForm.value,
-     );
+    );
 
     console.log(appointmentRequest);
     this.appointmentService.postAppointmentRequest(appointmentRequest)
       .subscribe(resp => {
         if (resp.status === 200) {
-          location.reload();
+          this.router.navigate(['/home']);
         } else if (resp.status === 202) {
           console.log(resp.body);
           this.snack.open('The requested day and time is already booked!', null, {duration: 2000});

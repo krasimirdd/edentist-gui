@@ -9,116 +9,100 @@ import {Doctor} from '../models/doctor';
 import {AuthenticatedUser} from '../models/authenticatedUser';
 import {AppointmentEdit} from '../models/appointmentEdit';
 import {environment} from '../../environments/environment';
+import {Routes} from './routes';
+import {Headers} from './headers';
 
 class AppointmentResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AppointmentService {
-  private secret = environment.secret;
 
-  // private getUrl = 'http://api.tvmaze.com/search/shows?q=Vikings';
-  private getUrl = 'http://localhost:8080/appointments';
-  private getSingleUrl = 'http://localhost:8080/appointment';
-  private postUrl = 'http://localhost:8080/appointments';
-  private updateUrl = 'http://localhost:8080/appointments/';
-  private getServicesUrl = 'http://localhost:8080/api/services';
-  private getDoctorsUrl = 'http://localhost:8080/api/doctors';
+    constructor(private  httpClient: HttpClient) {
+    }
 
-  constructor(private  httpClient: HttpClient) {
-  }
+    getAppointments(currentUser: AuthenticatedUser): Observable<Appointment[]> {
+        const headers = Headers.withAuthorization(true);
 
-  getAppointments(currentUser: AuthenticatedUser): Observable<Appointment[]> {
-    const headers = new HttpHeaders().set('Authorization', localStorage.getItem('authorization'));
+        return this.httpClient
+            .get<Appointment[]>(`${Routes.APPOINTMENTS}/`, {params: {user: `${currentUser.email}`}, headers})
+            .pipe(
+                delay(500)
+            );
+    }
 
-    return this.httpClient
-      .get<Appointment[]>(`${this.getUrl}/`, {params: {user: `${currentUser.email}`}, headers})
-      .pipe(
-        delay(500)
-      );
-  }
+    getAppointment(email: string, code: string): Observable<Appointment> {
+        const headers = new HttpHeaders().set('Code', code);
 
-  getAppointment(email: string, code: string): Observable<Appointment> {
-    const headers = new HttpHeaders().set('Code', code);
+        return this.httpClient
+            .get<Appointment>(`${Routes.SINGLE_APPOINTMENT}/`, {params: {user: `${email}`}, headers})
+            .pipe(
+                delay(500)
+            );
+    }
 
-    return this.httpClient
-      .get<Appointment>(`${this.getSingleUrl}/`, {params: {user: `${email}`}, headers})
-      .pipe(
-        delay(500)
-      );
-  }
+    getAppointmentsWithFilter(currentUser: AuthenticatedUser, filter: string): Observable<Appointment[]> {
+        const headers = Headers.withAuthorization(true).set('Filter', filter);
+        console.log(filter);
 
-  getAppointmentsWithFilter(currentUser: AuthenticatedUser, filter: string): Observable<Appointment[]> {
-    const headers = new HttpHeaders()
-      .set('Filter', filter)
-      .set('Authorization', localStorage.getItem('authorization'));
-    console.log(filter);
+        return this.httpClient
+            .get<Appointment[]>(`${Routes.APPOINTMENTS}/`, {headers, params: {user: `${currentUser.email}`}})
+            .pipe(delay(500));
+    }
 
-    return this.httpClient
-      .get<Appointment[]>(`${this.getUrl}/`, {headers, params: {user: `${currentUser.email}`}})
-      .pipe(delay(500));
-  }
+    postAppointmentRequest(appointment: AppointmentRequest): Observable<HttpResponse<AppointmentResponse>> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  postAppointmentRequest(appointment: AppointmentRequest): Observable<HttpResponse<AppointmentResponse>> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this.httpClient
+            .post<AppointmentRequest>(Routes.APPOINTMENTS, JSON.stringify(appointment), {headers, observe: 'response'});
+    }
 
-    return this.httpClient
-      .post<AppointmentRequest>(this.postUrl, JSON.stringify(appointment), {headers, observe: 'response'});
-  }
+    updateAppointment(updated: AppointmentEdit): Observable<HttpResponse<AppointmentResponse>> {
+        const headers = Headers.withAuthorization(true).set('Content-Type', 'application/json');
+        console.log(updated);
 
-  updateAppointment(updated: AppointmentEdit): Observable<HttpResponse<AppointmentResponse>> {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', localStorage.getItem('authorization'));
+        return this.httpClient
+            .post<AppointmentEdit>(`${Routes.APPOINTMENTS}/${updated.id}`, JSON.stringify(updated), {headers, observe: 'response'});
+    }
 
-    console.log(updated);
+    getServices(): Observable<Service[]> {
+        const headers = Headers.withAuthorization(false);
 
-    return this.httpClient
-      .post<AppointmentEdit>(`${this.updateUrl}${updated.id}`, JSON.stringify(updated), {headers, observe: 'response'});
-  }
+        return this.httpClient
+            .get<Service[]>(Routes.API_SERVICES, {headers})
+            .pipe(
+                map(response => response)
+            );
+    }
 
-  getServices(): Observable<Service[]> {
-    const headers = new HttpHeaders().set('Authorization', this.secret);
+    getDoctors(): Observable<Doctor[]> {
+        const headers = Headers.withAuthorization(false);
 
-    return this.httpClient
-      .get<Service[]>(this.getServicesUrl, {headers})
-      .pipe(
-        map(response => response)
-      );
-  }
+        return this.httpClient
+            .get<Doctor[]>(Routes.API_DOCTORS, {headers})
+            .pipe(
+                map(response => response)
+            );
+    }
 
-  getDoctors(): Observable<Doctor[]> {
-    const headers = new HttpHeaders().set('Authorization', this.secret);
+    postStatus(appointment: Appointment): Observable<Appointment> {
+        const headers = Headers.withAuthorization(true).set('Content-Type', 'application/json');
+        console.log(appointment);
 
-    return this.httpClient
-      .get<Doctor[]>(this.getDoctorsUrl, {headers})
-      .pipe(
-        map(response => response)
-      );
-  }
+        return this.httpClient
+            .post<Appointment>(`${Routes.APPOINTMENTS}/${appointment.id}`, JSON.stringify(appointment), {headers})
+            .pipe(
+                map(response => response)
+            );
+    }
 
-  postStatus(a: Appointment): Observable<Appointment> {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', localStorage.getItem('authorization'));
-    console.log(a);
+    postCancel(appointment: Appointment): Observable<HttpResponse<Appointment>> {
+        const headers = Headers.withAuthorization(true).set('Content-Type', 'application/json');
+        console.log('Canceling -> ' + appointment);
 
-    return this.httpClient
-      .post<Appointment>(this.updateUrl + a.id, JSON.stringify(a), {headers})
-      .pipe(
-        map(response => response)
-      );
-  }
-
-  postCancel(a: Appointment): Observable<HttpResponse<Appointment>> {
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', localStorage.getItem('authorization'));
-    console.log('Canceling -> ' + a);
-
-    return this.httpClient
-      .delete<Appointment>(this.updateUrl + a.id, {headers, observe: 'response'});
-  }
+        return this.httpClient
+            .delete<Appointment>(`${Routes.APPOINTMENTS}/${appointment.id}`, {headers, observe: 'response'});
+    }
 }

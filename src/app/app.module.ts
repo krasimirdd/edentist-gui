@@ -16,7 +16,6 @@ import {AuthModule} from '@auth0/auth0-angular';
 import {environment as env} from '../environments/environment';
 import {ProfileComponent} from './components/profile/profile.component';
 import {TrackAppointmentComponent} from './components/track-appointment/track-appointment.component';
-import {DoctorPageComponent} from './components/doctor-page/doctor-page.component';
 import {HttpClientModule} from '@angular/common/http';
 import {IsLoadingModule} from '@service-work/is-loading';
 import {EditAppointmentComponent} from './components/edit-appointment/edit-appointment.component';
@@ -60,7 +59,6 @@ const routers: Routes = [
     PatientComponent,
     PatientPageComponent,
     ProfileComponent,
-    DoctorPageComponent,
     EditAppointmentComponent,
     EditAppointmentComponent,
     NewsfeedComponent,

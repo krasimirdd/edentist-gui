@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppointmentService} from '../../services/appointment.service';
 import {Appointment} from '../../models/appointment';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
@@ -23,7 +23,7 @@ export class ListAppointmentComponent implements OnInit {
 
   appointments: Appointment[] = [];
 
-  @Input() authenticatedUser: AuthenticatedUser;
+  authenticatedUser: AuthenticatedUser;
   isDoctor = false;
   sort: FormGroup;
 
@@ -32,14 +32,15 @@ export class ListAppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.authenticatedUser);
-    console.log(this.authenticatedUser.role);
+    this.authenticatedUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.isDoctor = this.authenticatedUser.role === 'doctor';
-    this.appointmentService.getAppointments(this.authenticatedUser)
-      .subscribe(
-        data => this.appointments = data
-      );
+    if (this.authenticatedUser !== null) {
+      this.isDoctor = this.authenticatedUser.role === 'doctor';
+      this.appointmentService.getAppointments(this.authenticatedUser)
+        .subscribe(
+          data => this.appointments = data
+        );
+    }
   }
 
   sortByStatus(): void {
@@ -66,7 +67,6 @@ export class ListAppointmentComponent implements OnInit {
         );
     } else {
       values = values.substr(0, values.lastIndexOf(','));
-
       console.log(values);
 
       this.appointmentService.getAppointmentsWithFilter(this.authenticatedUser, 'status:' + values)
@@ -77,8 +77,7 @@ export class ListAppointmentComponent implements OnInit {
   }
 
   onApprove(a: Appointment): void {
-    const confirm = ListAppointmentComponent.doConfirm();
-    if (confirm) {
+    if (ListAppointmentComponent.doConfirm()) {
       const newAppointment = new Appointment(a, 'Approved');
       this.appointmentService.postStatus(newAppointment)
         .subscribe(
@@ -94,8 +93,7 @@ export class ListAppointmentComponent implements OnInit {
   }
 
   onDecline(a: Appointment): void {
-    const confirm = ListAppointmentComponent.doConfirm();
-    if (confirm) {
+    if (ListAppointmentComponent.doConfirm()) {
       const newAppointment = new Appointment(a, 'Declined');
       this.appointmentService.postStatus(newAppointment)
         .subscribe(
@@ -111,8 +109,7 @@ export class ListAppointmentComponent implements OnInit {
   }
 
   onCancel(a: Appointment): void {
-    const confirm = ListAppointmentComponent.doConfirm();
-    if (confirm) {
+    if (ListAppointmentComponent.doConfirm()) {
       this.appointmentService.postCancel(a)
         .subscribe(resp => {
             if (resp.status === 200) {

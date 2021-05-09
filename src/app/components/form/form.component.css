@@ -10,5 +10,5 @@ mat-form-field {
 
 .mat-stepper-vertical, .mat-stepper-horizontal {
   display: block;
-  padding: 13%;
+  padding: 5% 13% 13%;
 }

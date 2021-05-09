@@ -1,67 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AppointmentService} from '../../../../services/appointment.service';
+import {Doctor} from '../../../../models/doctor';
 
 @Component({
-  selector: 'app-team',
-  templateUrl: './team.component.html',
-  styleUrls: ['./team.component.css'],
+    selector: 'app-team',
+    templateUrl: './team.component.html',
+    styleUrls: ['./team.component.css'],
 })
 export class TeamComponent implements OnInit {
-  team = [
-    {
-      image: '../assets/images/team/t1.jpg',
-      name: 'Michael Doe',
-      designation: 'Property Specialist',
-      comment:
-        'You can relay on our amazing features list and also our customer services will be great experience.',
-      followOn: [
-        'fab fa-facebook-f',
-        'fab fa-twitter',
-        'fab fa-instagram',
-        'fab fa-behance',
-      ],
-    },
-    {
-      image: '../assets/images/team/t2.jpg',
-      name: 'Michael Doe',
-      designation: 'Property Specialist',
-      comment:
-        'You can relay on our amazing features list and also our customer services will be great experience.',
-      followOn: [
-        'fab fa-facebook-f',
-        'fab fa-twitter',
-        'fab fa-instagram',
-        'fab fa-behance',
-      ],
-    },
-    {
-      image: '../assets/images/team/t3.jpg',
-      name: 'Michael Doe',
-      designation: 'Property Specialist',
-      comment:
-        'You can relay on our amazing features list and also our customer services will be great experience.',
-      followOn: [
-        'fab fa-facebook-f',
-        'fab fa-twitter',
-        'fab fa-instagram',
-        'fab fa-behance',
-      ],
-    },
-    {
-      image: '../assets/images/team/t4.jpg',
-      name: 'Michael Doe',
-      designation: 'Property Specialist',
-      comment:
-        'You can relay on our amazing features list and also our customer services will be great experience.',
-      followOn: [
-        'fab fa-facebook-f',
-        'fab fa-twitter',
-        'fab fa-instagram',
-        'fab fa-behance',
-      ],
-    },
-  ];
 
-  constructor() {}
+    public defService: AppointmentService;
+    doctors: Doctor[];
 
-  ngOnInit(): void {}
+    constructor(defService: AppointmentService) {
+        this.defService = defService;
+    }
+
+    ngOnInit(): void {
+        this.defService.getDoctors()
+            .subscribe((data) => this.doctors = data);
+    }
 }
