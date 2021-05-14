@@ -1,16 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-add-appointment',
-  templateUrl: './add-appointment.component.html',
-  styleUrls: ['./add-appointment.component.css']
+    selector: 'app-add-appointment',
+    templateUrl: './add-appointment.component.html',
+    styleUrls: ['./add-appointment.component.css']
 })
-export class AddAppointmentComponent implements OnInit {
+export class AddAppointmentComponent {
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+    constructor() {
+    }
 }

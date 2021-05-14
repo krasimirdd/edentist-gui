@@ -8,9 +8,9 @@ import {Service} from '../models/service';
 import {Doctor} from '../models/doctor';
 import {AuthenticatedUser} from '../models/authenticatedUser';
 import {AppointmentEdit} from '../models/appointmentEdit';
-import {environment} from '../../environments/environment';
 import {Routes} from './routes';
 import {Headers} from './headers';
+import {Helpers} from './helpers';
 
 class AppointmentResponse {
 }
@@ -20,40 +20,43 @@ class AppointmentResponse {
 })
 export class AppointmentService {
 
-    constructor(private  httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient) {
     }
 
-    getAppointments(currentUser: AuthenticatedUser): Observable<Appointment[]> {
+    getAppointments(currentUser: AuthenticatedUser) {
         const headers = Headers.withAuthorization(true);
+        console.log('Getting list of appointments!');
 
         return this.httpClient
-            .get<Appointment[]>(`${Routes.APPOINTMENTS}/`, {params: {user: `${currentUser.email}`}, headers})
+            .get<Appointment[]>(`${Routes.APPOINTMENTS}/`, {params: {user: currentUser.email}, headers})
             .pipe(
                 delay(500)
             );
     }
 
-    getAppointment(email: string, code: string): Observable<Appointment> {
+    getAppointment(email: string, code: string) {
         const headers = new HttpHeaders().set('Code', code);
+        console.log('Getting single appointment!');
 
         return this.httpClient
-            .get<Appointment>(`${Routes.SINGLE_APPOINTMENT}/`, {params: {user: `${email}`}, headers})
+            .get<Appointment>(`${Routes.SINGLE_APPOINTMENT}/`, {params: {user: email}, headers})
             .pipe(
                 delay(500)
             );
     }
 
-    getAppointmentsWithFilter(currentUser: AuthenticatedUser, filter: string): Observable<Appointment[]> {
+    getAppointmentsWithFilter(currentUser: AuthenticatedUser, filter: string) {
         const headers = Headers.withAuthorization(true).set('Filter', filter);
-        console.log(filter);
+        console.log('Filtering appointments by ' + filter);
 
         return this.httpClient
-            .get<Appointment[]>(`${Routes.APPOINTMENTS}/`, {headers, params: {user: `${currentUser.email}`}})
+            .get<Appointment[]>(`${Routes.APPOINTMENTS}/`, {headers, params: {user: currentUser.email}})
             .pipe(delay(500));
     }
 
     postAppointmentRequest(appointment: AppointmentRequest): Observable<HttpResponse<AppointmentResponse>> {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        console.log('Posting appointment!');
 
         return this.httpClient
             .post<AppointmentRequest>(Routes.APPOINTMENTS, JSON.stringify(appointment), {headers, observe: 'response'});
@@ -61,13 +64,13 @@ export class AppointmentService {
 
     updateAppointment(updated: AppointmentEdit): Observable<HttpResponse<AppointmentResponse>> {
         const headers = Headers.withAuthorization(true).set('Content-Type', 'application/json');
-        console.log(updated);
+        console.log('Updating appointment!');
 
         return this.httpClient
-            .post<AppointmentEdit>(`${Routes.APPOINTMENTS}/${updated.id}`, JSON.stringify(updated), {headers, observe: 'response'});
+            .post<AppointmentEdit>(`${Routes.APPOINTMENTS}/${updated.id}`, Helpers.stringify(updated), {headers, observe: 'response'});
     }
 
-    getServices(): Observable<Service[]> {
+    getServices() {
         const headers = Headers.withAuthorization(false);
 
         return this.httpClient
@@ -77,7 +80,7 @@ export class AppointmentService {
             );
     }
 
-    getDoctors(): Observable<Doctor[]> {
+    getDoctors() {
         const headers = Headers.withAuthorization(false);
 
         return this.httpClient
@@ -87,9 +90,9 @@ export class AppointmentService {
             );
     }
 
-    postStatus(appointment: Appointment): Observable<Appointment> {
+    postStatus(appointment: Appointment) {
         const headers = Headers.withAuthorization(true).set('Content-Type', 'application/json');
-        console.log(appointment);
+        console.log('Changing status!');
 
         return this.httpClient
             .post<Appointment>(`${Routes.APPOINTMENTS}/${appointment.id}`, JSON.stringify(appointment), {headers})
@@ -98,11 +101,21 @@ export class AppointmentService {
             );
     }
 
-    postCancel(appointment: Appointment): Observable<HttpResponse<Appointment>> {
+    postCancel(appointment: Appointment) {
         const headers = Headers.withAuthorization(true).set('Content-Type', 'application/json');
-        console.log('Canceling -> ' + appointment);
+        console.log('Canceling appointment!');
 
         return this.httpClient
             .delete<Appointment>(`${Routes.APPOINTMENTS}/${appointment.id}`, {headers, observe: 'response'});
+    }
+
+    getArchivedAppointments(value: string) {
+        const headers = Headers.withAuthorization(true);
+
+        return this.httpClient
+            .get<Appointment[]>(`${Routes.ARCHIVED_APPOINTMENTS}/`, {params: {user: value}, headers})
+            .pipe(
+                delay(500)
+            );
     }
 }

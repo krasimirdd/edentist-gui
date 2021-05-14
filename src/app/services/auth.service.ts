@@ -5,13 +5,7 @@ import {AuthService as auth0} from '@auth0/auth0-angular';
 import {AuthenticatedUser} from '../models/authenticatedUser';
 import {Routes} from './routes';
 import {Headers} from './headers';
-
-export class UserMetadata {
-    constructor(public id: number, public name: string, public email: string, public phone: string,
-                public blood: string, public sex: string,
-                public role: string) {
-    }
-}
+import {Helpers} from './helpers';
 
 @Injectable({
     providedIn: 'root'
@@ -27,24 +21,17 @@ export class AuthService {
     getUserMetadata(userEmail: string): Observable<HttpResponse<any>> {
         const headers = Headers.withAuthorization(false);
 
-        return this.httpClient
-            .get(
-                `${Routes.API_USER}/${userEmail}`,
-                {
-                    observe: 'response',
-                    headers
-                });
+        return this.httpClient.get(`${Routes.API_USER}/${userEmail}`, {observe: 'response', headers});
     }
 
     private registerUser(user: AuthenticatedUser) {
         const headers = Headers.withAuthorization(false);
 
-        return this.httpClient
-            .post<any>(Routes.API_USER, user.email, {headers}).pipe();
+        return this.httpClient.post<any>(Routes.API_USER, user.email, {headers}).pipe();
     }
 
     isLoggedIn(): boolean {
-        if (localStorage.getItem('currentUser') !== null) {
+        if (Helpers.getAuthenticatedUser() !== null) {
             this.loginStatusService = true;
         }
 
@@ -59,30 +46,17 @@ export class AuthService {
                 authenticatedUser = profile;
                 this.getUserMetadata(authenticatedUser.email)
                     .subscribe((res: HttpResponse<any>) => {
-                            const entity = res.body;
-                            authenticatedUser.role = entity.role;
-                            authenticatedUser.details = entity;
-                            localStorage.setItem('currentUser', JSON.stringify(authenticatedUser));
-                            localStorage.setItem('authorization', res.headers.get('authorization'));
-                        }, error => {
-                            this.registerUser(authenticatedUser).subscribe(
-                                () => {
-                                    localStorage.setItem('currentUser', JSON.stringify(authenticatedUser));
-                                }
-                            );
-                        }
-                    );
+                        const entity = res.body;
+                        authenticatedUser.role = entity.role;
+                        authenticatedUser.details = entity;
+                        Helpers.setAuthorization(authenticatedUser, res.headers);
+                    }, error => {
+                        this.registerUser(authenticatedUser)
+                            .subscribe(() => Helpers.setUser(authenticatedUser));
+                    });
             }, error => {
-                this.registerUser(authenticatedUser).subscribe(
-                    () => {
-                        localStorage.setItem('currentUser', JSON.stringify(authenticatedUser));
-                    }
-                );
-
-            }, () => {
-                console.log(authenticatedUser);
-                return authenticatedUser;
-            }
+                this.registerUser(authenticatedUser).subscribe(() => Helpers.setUser(authenticatedUser));
+            }, () => authenticatedUser
         );
     }
 }

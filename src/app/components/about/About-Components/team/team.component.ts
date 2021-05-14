@@ -9,15 +9,13 @@ import {Doctor} from '../../../../models/doctor';
 })
 export class TeamComponent implements OnInit {
 
-    public defService: AppointmentService;
     doctors: Doctor[];
 
-    constructor(defService: AppointmentService) {
-        this.defService = defService;
+    constructor(private service: AppointmentService) {
     }
 
-    ngOnInit(): void {
-        this.defService.getDoctors()
+    ngOnInit() {
+        this.service.getDoctors()
             .subscribe((data) => this.doctors = data);
     }
 }

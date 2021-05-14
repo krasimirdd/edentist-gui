@@ -1,14 +1,14 @@
 mat-card-header {
-  background: radial-gradient(circle, rgba(255, 152, 0, 1) 0%, rgba(255, 152, 0, 0.44861694677871145) 0%, rgba(255, 152, 0, 0.1516981792717087) 100%);
-  padding: 20px 0 0 20px
+    background: radial-gradient(circle, rgba(255, 152, 0, 1) 0%, rgba(255, 152, 0, 0.44861694677871145) 0%, rgba(255, 152, 0, 0.1516981792717087) 100%);
+    padding: 20px 0 0 20px
 }
 
 .article-description {
-  padding: 20px;
+    padding: 20px;
 }
 
 .article-card {
-  cursor: pointer;
-  padding: 0;
-  margin: 0 0 20px 0;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 0 20px 0;
 }

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TeamComponent} from '../team/team.component';
 import {AppointmentService} from '../../../../services/appointment.service';
 
 @Component({
@@ -9,7 +8,6 @@ import {AppointmentService} from '../../../../services/appointment.service';
 })
 export class AchivementComponent implements OnInit {
 
-    private defService: AppointmentService;
     doctorsCount: number | string;
 
     achivement = [
@@ -35,12 +33,11 @@ export class AchivementComponent implements OnInit {
         }
     ];
 
-    constructor(defService: AppointmentService) {
-        this.defService = defService;
+    constructor(private service: AppointmentService) {
     }
 
-    ngOnInit(): void {
-        this.defService.getDoctors()
+    ngOnInit() {
+        this.service.getDoctors()
             .subscribe((data) => this.doctorsCount = data.length);
     }
 

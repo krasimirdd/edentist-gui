@@ -30,67 +30,68 @@ import {AboutComponent} from './components/about/about.component';
 import {TeamComponent} from './components/about/About-Components/team/team.component';
 import {AchivementComponent} from './components/about/About-Components/achivement/achivement.component';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
-import { ListSingleAppointmentComponent } from './components/list-single-appointment/list-single-appointment.component';
+import {ListSingleAppointmentComponent} from './components/list-single-appointment/list-single-appointment.component';
+import {ListArchivedAppointmentsComponent} from './components/list-archived-appointments/list-archived-appointments';
 
 const routers: Routes = [
-  {
-    path: '',
-    component: FullComponent,
-    children: [
-      {path: '', component: ProfileComponent},
-      {path: 'home', component: ProfileComponent},
-      {path: 'appointments', component: PatientPageComponent},
-      {path: 'appointments/patient/track', component: TrackAppointmentComponent},
-      {path: 'about', component: AboutComponent}
-    ],
-  }
+    {
+        path: '',
+        component: FullComponent,
+        children: [
+            {path: '', component: ProfileComponent},
+            {path: 'home', component: ProfileComponent},
+            {path: 'appointments', component: PatientPageComponent},
+            {path: 'appointments/patient/track', component: TrackAppointmentComponent},
+            {path: 'about', component: AboutComponent}
+        ],
+    }
 ];
 
-// @ts-ignore
 @NgModule({
-  declarations: [
-    AppComponent,
-    ListAppointmentComponent,
-    ListSingleAppointmentComponent,
-    DoctorComponent,
-    AddAppointmentComponent,
-    TrackAppointmentComponent,
-    FormComponent,
-    PatientComponent,
-    PatientPageComponent,
-    ProfileComponent,
-    EditAppointmentComponent,
-    EditAppointmentComponent,
-    NewsfeedComponent,
-    FooterComponent,
-    FullComponent,
-    BannerComponent,
-    BannerNavigationComponent,
-    AboutComponent,
-    TeamComponent,
-    AchivementComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    IsLoadingModule,
-    RouterModule,
-    RouterModule.forRoot(routers),
-    BrowserAnimationsModule,
-    MaterialModule,
-    FormsModule,
-    ChatModule,
-    AuthModule.forRoot({
-      ...env.auth,
-    }),
-    NgbModule,
-    ProgressSpinnerModule,
-  ],
-  providers: [
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
-  ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    declarations: [
+        AppComponent,
+        ListAppointmentComponent,
+        ListSingleAppointmentComponent,
+        DoctorComponent,
+        AddAppointmentComponent,
+        TrackAppointmentComponent,
+        FormComponent,
+        PatientComponent,
+        PatientPageComponent,
+        ProfileComponent,
+        EditAppointmentComponent,
+        EditAppointmentComponent,
+        NewsfeedComponent,
+        FooterComponent,
+        FullComponent,
+        BannerComponent,
+        BannerNavigationComponent,
+        AboutComponent,
+        TeamComponent,
+        AchivementComponent,
+        ListArchivedAppointmentsComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        IsLoadingModule,
+        RouterModule,
+        RouterModule.forRoot(routers),
+        BrowserAnimationsModule,
+        MaterialModule,
+        FormsModule,
+        ChatModule,
+        AuthModule.forRoot({
+            ...env.auth,
+        }),
+        NgbModule,
+        ProgressSpinnerModule,
+    ],
+    providers: [
+        {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
+    ],
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }

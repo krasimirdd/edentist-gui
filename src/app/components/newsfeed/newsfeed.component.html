@@ -1,59 +1,56 @@
 <p *ngIf="showLoader; else mainContent">
-  <progress></progress>
+    <progress></progress>
 </p>
 
 <ng-template #mainContent>
 
-  <div class="container spacer">
-    <div class="row justify-content-center">
-      <!-- Column -->
-      <div class="col-md-8 text-center no-trans">
-        <h2 class="title">Recent News</h2>
-        <h6 class="subtitle" style="font-size: 16px">
-          You can relay on our amazing features list and also our customer
-          services will be great experience for you without doubt and in no-time
-        </h6>
-      </div>
-      <!-- Column -->
-    </div>
-    <div class="row m-t-40 blog-home2" *ngIf="$newsfeed | async as newsfeed" style="overflow-y: scroll; height: 650px">
-      <!-- Column -->
-        <div
-          class="col-md-4"
-          *ngFor="let bl of newsfeed
-          | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize
-      "
-        >
-          <div class="card" data-aos="flip-left" data-aos-duration="1200">
-            <img
-              class="card-img-top cursor-pointer"
-              [src]="bl.urlToImage"
-              alt="wrappixel kit"
-              height="200px"
-              (click)="followUrl(bl.url)"
-            />
-            <div class="date-pos bg-info-gradiant">
-              <span>{{ bl.publishedAt }}</span>
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Column -->
+            <div class="col-md-8 text-center no-trans">
+                <h2 class="title">Recent News</h2>
+                <h6 class="subtitle" style="font-size: 16px">
+                    You can relay on our amazing features list and also our customer
+                    services will be great experience for you without doubt and in no-time
+                </h6>
             </div>
-            <h5 class="font-medium m-t-30">{{ bl.title.substring(0, 50) }}..</h5>
-            <p class="m-t-20">
-              {{ bl.description }}
-            </p>
-            <a class="linking font-medium text-themecolor m-t-10 cursor-pointer">
-              <span (click)="followUrl(bl.url)">Show Detail</span>
-              <i class="ti-arrow-right"></i>
-            </a>
-          </div>
+            <!-- Column -->
         </div>
-      </div>
+        <div class="row m-t-40 blog-home2" *ngIf="$newsfeed | async as newsfeed"
+             style="overflow-y: scroll; height: 650px">
+            <div class="col-md-4"
+                 *ngFor="let bl of newsfeed | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize">
 
-      <div class="d-flex justify-content-center mt-5">
-        <ngb-pagination
-          [(page)]="page"
-          [pageSize]="pageSize"
-          [collectionSize]="100"
-        ></ngb-pagination>
-      </div>
+                <div class="card" data-aos="flip-left" data-aos-duration="1200">
+                    <img
+                        class="card-img-top cursor-pointer"
+                        [src]="bl.urlToImage"
+                        alt="wrappixel kit"
+                        height="200px"
+                        (click)="followUrl(bl.url)"
+                    />
+                    <div class="date-pos bg-info-gradiant">
+                        <span>{{ bl.publishedAt }}</span>
+                    </div>
+                    <h5 class="font-medium m-t-30">{{ bl.title.substring(0, 50) }}..</h5>
+                    <p class="m-t-20">
+                        {{ bl.description }}
+                    </p>
+                    <a class="linking font-medium text-themecolor m-t-10 cursor-pointer">
+                        <span (click)="followUrl(bl.url)">Show Detail</span>
+                        <i class="ti-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="100"
+            ></ngb-pagination>
+        </div>
     </div>
 
 </ng-template>

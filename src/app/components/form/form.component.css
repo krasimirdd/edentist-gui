@@ -1,14 +1,14 @@
 mat-form-field {
-  padding-right: 20px;
-  padding-top: 20px;
-  border-radius: 50%;
+    padding-right: 20px;
+    padding-top: 20px;
+    border-radius: 50%;
 }
 
 #done-container-buttons button {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .mat-stepper-vertical, .mat-stepper-horizontal {
-  display: block;
-  padding: 5% 13% 13%;
+    display: block;
+    padding: 5% 13% 13%;
 }

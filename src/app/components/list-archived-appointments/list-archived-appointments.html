@@ -1,0 +1,18 @@
+<h1 mat-dialog-title> Archived appointments</h1>
+<div class="row blog-home2" *ngIf="data!==null; else emptyResponse" style="overflow-y: scroll; height: 650px">
+    <mat-divider></mat-divider>
+
+    <div class="col-md-4" *ngFor="let appointment of data" style="padding: 20px">
+        <p class="title">
+            <app-patient [patient]=appointment.patient></app-patient>
+            <app-doctor [doctor]="appointment.doctor"></app-doctor>
+        </p>
+        <p class="subtitle">{{appointment.date}}</p>
+        <p class="subtitle">{{appointment.service.type}}</p>
+        <p>{{appointment.status}}</p>
+        <p>{{appointment.medicalHistory}}</p>
+        <p>{{appointment.prescription}}</p>
+    </div>
+</div>
+
+<ng-template #emptyResponse><p> No archived appoitments for this user! </p></ng-template>

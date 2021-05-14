@@ -1,14 +1,12 @@
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  /* margin-right: -15px; */
-  /* margin-left: -15px; */
-  margin-right: 1%;
-  margin-left: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 1%;
+    margin-left: 1%;
 }
 
 .col-6 {
-  flex: 0 0 50%;
-  max-width: 45%;
-  padding: 0;
+    flex: 0 0 50%;
+    max-width: 45%;
+    padding: 0;
 }

@@ -1,82 +1,72 @@
 <h1 mat-dialog-title>Edit appointment</h1>
 <div mat-dialog-content>
-  <form [formGroup]="formGroup">
-    <mat-divider></mat-divider>
+    <form [formGroup]="formGroup">
+        <mat-divider></mat-divider>
 
-    <div style="height: 180px; padding-left: 25px; padding-bottom: 30px">
-      <div style="float: left; width: 50%; padding-top: 20px">
-        <h3>Patient Info: </h3>
-        <p>{{data.patient.name}}</p>
-        <p>{{data.patient.email}}</p>
-        <p>{{data.patient.phone}}</p>
-      </div>
-      <div style="padding-top: 20px;">
-        <h3>Date for appointment: {{date}} </h3>
-      </div>
-      <h3>Service Type: </h3>
-      <mat-form-field appearance="outline">
-        <mat-label>Service</mat-label>
-        <mat-select formControlName="serviceEditForm" [(ngModel)]="service.type" required>
-          <mat-option *ngFor="let s of availableServices" value="{{s.id}}">{{s.type}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+        <div style="height: 180px; padding-left: 25px; padding-bottom: 30px">
+            <div style="float: left; width: 50%; padding-top: 20px">
+                <h3>Patient Info: </h3>
+                <p>{{data.patient.name}}</p>
+                <p>{{data.patient.email}}</p>
+                <p>{{data.patient.phone}}</p>
+            </div>
+            <div style="padding-top: 20px;">
+                <h3>Date for appointment: {{date}} </h3>
+            </div>
+            <h3> Service Type: </h3>
+            <mat-form-field appearance="outline">
+                <mat-label>Service</mat-label>
+                <mat-select formControlName="serviceEditForm" [(ngModel)]="service.type" required>
+                    <mat-option *ngFor="let s of availableServices" value="{{s.id}}">{{s.type}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
-    <mat-divider></mat-divider>
-    <div style="padding:20px">
-      <!--    <form [formGroup]="nextFromGroup">-->
+        <mat-divider></mat-divider>
+        <div style="padding:20px">
 
-      <div>
-        <h3> Prescription:</h3>
-        <mat-form-field appearance="outline" style="display: inline">
-          <mat-label> Prescription</mat-label>
-          <textarea formControlName="_prescription" matInput [(ngModel)]="prescription"></textarea>
-          <button (click)="prescription=''" aria-label="Clear" mat-button mat-icon-button matSuffix>
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
+            <div>
+                <h3> Prescription:</h3>
+                <mat-form-field appearance="outline" style="display: inline">
+                    <mat-label> Prescription</mat-label>
+                    <textarea formControlName="_prescription" matInput [(ngModel)]="prescription"></textarea>
+                    <button (click)="prescription=''" aria-label="Clear" mat-button mat-icon-button matSuffix>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
 
-      <div>
-        <h3> Medical history: </h3>
-        <mat-form-field appearance="outline" style="display: inline">
-          <mat-label> Medical History</mat-label>
-          <textarea formControlName="_medhist" matInput [(ngModel)]="medHist"></textarea>
-          <button (click)="medHist=''" aria-label="Clear" mat-button mat-icon-button matSuffix>
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
+            <div>
+                <h3> Medical history: </h3>
+                <mat-form-field appearance="outline" style="display: inline">
+                    <mat-label> Medical History</mat-label>
+                    <textarea formControlName="_medhist" matInput [(ngModel)]="medHist"></textarea>
+                    <button (click)="medHist=''" aria-label="Clear" mat-button mat-icon-button matSuffix>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
 
-      <div>
-        <h3> Blood type: </h3>
-        <mat-form-field appearance="outline">
-          <mat-label> Blood Type </mat-label>
-          <mat-select formControlName="_bloodType" [(ngModel)]="bloodType">
-            <mat-option value="A+">A+</mat-option>
-            <mat-option value="A-">A-</mat-option>
-            <mat-option value="B+">B+</mat-option>
-            <mat-option value="B-">B-</mat-option>
-            <mat-option value="0+">0+</mat-option>
-            <mat-option value="0-">0-</mat-option>
-            <mat-option value="AB+">AB+</mat-option>
-            <mat-option value="AB-">AB-</mat-option>
-          </mat-select>
-        </mat-form-field>
+            <div>
+                <h3> Blood type: </h3>
+                <mat-form-field appearance="outline">
+                    <mat-label> Blood Type</mat-label>
+                    <mat-select formControlName="_bloodType" [(ngModel)]="bloodType">
+                        <mat-option value="A+">A+</mat-option>
+                        <mat-option value="A-">A-</mat-option>
+                        <mat-option value="B+">B+</mat-option>
+                        <mat-option value="B-">B-</mat-option>
+                        <mat-option value="0+">0+</mat-option>
+                        <mat-option value="0-">0-</mat-option>
+                        <mat-option value="AB+">AB+</mat-option>
+                        <mat-option value="AB-">AB-</mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-<!--        <mat-form-field appearance="outline" style="display: inline">-->
-<!--          <mat-label> Blood Type </mat-label>-->
-<!--          <textarea formControlName="_bloodType" matInput [(ngModel)]="bloodType"></textarea>-->
-<!--          <button (click)="bloodType=''" aria-label="Clear" mat-button mat-icon-button matSuffix>-->
-<!--            <mat-icon>close</mat-icon>-->
-<!--          </button>-->
-<!--        </mat-form-field>-->
-      </div>
-
-      <!--  </form>-->
-
-    </div>
-  </form>
+            </div>
+            >
+        </div>
+    </form>
 
 </div>
 

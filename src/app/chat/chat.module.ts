@@ -5,15 +5,15 @@ import {ChatService} from './chat.service';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-  ],
-  declarations: [
-    ChatDialogComponent
-  ],
-  exports: [ ChatDialogComponent],
-  providers: [ChatService]
+    imports: [
+        CommonModule,
+        FormsModule,
+    ],
+    declarations: [
+        ChatDialogComponent
+    ],
+    exports: [ChatDialogComponent],
+    providers: [ChatService]
 })
 export class ChatModule {
 }
