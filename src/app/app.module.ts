@@ -19,7 +19,6 @@ import {TrackAppointmentComponent} from './components/track-appointment/track-ap
 import {HttpClientModule} from '@angular/common/http';
 import {IsLoadingModule} from '@service-work/is-loading';
 import {EditAppointmentComponent} from './components/edit-appointment/edit-appointment.component';
-import {ChatModule} from './chat/chat.module';
 import {NewsfeedComponent} from './components/newsfeed/newsfeed.component';
 import {FullComponent} from './layout/full/full.component';
 import {BannerComponent} from './shared/banner/banner.component';
@@ -32,6 +31,7 @@ import {AchivementComponent} from './components/about/About-Components/achivemen
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {ListSingleAppointmentComponent} from './components/list-single-appointment/list-single-appointment.component';
 import {ListArchivedAppointmentsComponent} from './components/list-archived-appointments/list-archived-appointments';
+import {ChatModule} from './chat/chat.module';
 
 const routers: Routes = [
     {
