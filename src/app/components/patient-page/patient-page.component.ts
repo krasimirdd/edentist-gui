@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticatedUser} from '../../models/authenticatedUser';
 import {AuthService} from '../../services/auth.service';
 import {Helpers} from '../../services/helpers';
@@ -8,7 +8,7 @@ import {Helpers} from '../../services/helpers';
     templateUrl: './patient-page.component.html',
     styleUrls: ['./patient-page.component.css']
 })
-export class PatientPageComponent {
+export class PatientPageComponent implements OnInit{
 
     authenticatedUser: AuthenticatedUser;
 
@@ -24,6 +24,9 @@ export class PatientPageComponent {
             return true;
         }
         return false;
+    }
+
+    ngOnInit(): void {
     }
 }
 

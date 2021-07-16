@@ -19,7 +19,7 @@
             <p class="text-md-center">
                 <img *ngIf="!this.isLoggedIn()" src="/assets/images/contact/2.jpg" style="margin-top:20%">
             </p>
-            <app-list-appointment></app-list-appointment>
+            <app-list-appointment *ngIf="this.isLoggedIn()"></app-list-appointment>
         </div>
 
         <div class="col-6">

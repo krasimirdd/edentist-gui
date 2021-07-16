@@ -25,19 +25,21 @@
         <mat-divider></mat-divider>
         <div style="padding:20px">
 
-            <div>
+            <div [formGroup]="presForm">
                 <h3 class="subtitle"> Prescription:</h3>
                 <mat-form-field appearance="outline" style="display: inline">
                     <mat-label> Prescription</mat-label>
-                    <textarea formControlName="_prescription" matInput disabled [(ngModel)]="prescription"></textarea>
+                    <textarea formControlName="_prescription" matInput disabled [(ngModel)]="prescription"
+                              readonly></textarea>
                 </mat-form-field>
             </div>
 
-            <div>
+            <div [formGroup]="medForm">
                 <h3 class="subtitle"> Medical history: </h3>
                 <mat-form-field appearance="outline" style="display: inline">
                     <mat-label> Medical History</mat-label>
-                    <textarea formControlName="_medhist" matInput disabled [(ngModel)]="medHist"></textarea>
+                    <textarea style="width:100%" formControlName="_medhist" matInput disabled [(ngModel)]="medHist"
+                              readonly></textarea>
                 </mat-form-field>
             </div>
 

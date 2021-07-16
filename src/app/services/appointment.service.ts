@@ -82,7 +82,7 @@ export class AppointmentService {
 
     getDoctors() {
         const headers = Headers.withAuthorization(false);
-
+        console.log(headers);
         return this.httpClient
             .get<Doctor[]>(Routes.API_DOCTORS, {headers})
             .pipe(

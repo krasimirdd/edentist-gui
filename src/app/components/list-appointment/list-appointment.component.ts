@@ -110,7 +110,7 @@ export class ListAppointmentComponent implements OnInit {
     onEdit({date, doctor, id, medicalHistory, patient, prescription, service, status}: Appointment) {
 
         const dialogRef = this.dialog.open(EditAppointmentComponent, {
-            width: '850px', height: '700px',
+            width: '850px', height: '800px',
             data: {id, patient, service, medicalHistory, prescription, doctor, status, date: date.toString()}
         });
 

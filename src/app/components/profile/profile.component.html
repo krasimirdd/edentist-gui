@@ -5,7 +5,7 @@
             <div class="row align-content-center profile-header">
                 <div class="col-12 mb-3 text-center text-md-center">
 
-                    <img *ngIf="authenticatedUser.details.img; else defaultPicture"
+                    <img *ngIf="authenticatedUser.details.img  === 'undefined'; else defaultPicture"
                          [src]="authenticatedUser.details.img"
                          alt="User's profile picture"
                          class="rounded-circle img-fluid profile-picture e2e-trusted-url"

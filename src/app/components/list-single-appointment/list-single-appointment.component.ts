@@ -4,6 +4,7 @@ import {Patient} from '../../models/patient';
 import {Service} from '../../models/service';
 import {Doctor} from '../../models/doctor';
 import {DialogData} from '../../models/dialogData';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-list-single-appointment',
@@ -20,6 +21,8 @@ export class ListSingleAppointmentComponent {
     doctor: Doctor;
     status: string;
     service: Service;
+    presForm: FormGroup;
+    medForm: FormGroup;
 
     constructor(
         public dialogRef: MatDialogRef<ListSingleAppointmentComponent>,
@@ -34,6 +37,13 @@ export class ListSingleAppointmentComponent {
         this.doctor = data.doctor;
         this.status = data.status;
         this.service = data.service;
+
+        this.presForm = new FormGroup({
+            _prescription: new FormControl({disabled: true})
+        });
+        this.medForm = new FormGroup({
+            _medhist: new FormControl({disabled: true})
+        });
     }
 
     onNoClick() {

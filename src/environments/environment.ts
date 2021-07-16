@@ -12,7 +12,7 @@ export const environment = {
         // redirectUri: window.location.origin,
         redirectUri: 'http://localhost:4200/home'
     },
-    secret: 'secret',
+    secret: 'edentistmegasecretapplicaitonkey123456789',
     serverUrl: 'http://localhost:8080'
     // dialogflow: {
     // tslint:disable-next-line:max-line-length
